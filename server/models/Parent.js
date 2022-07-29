@@ -4,7 +4,7 @@ const parentSchema = new Schema(
   {
     username: {
         type: String,
-        required: 'You need a name!',
+        required: 'You need a username!',
         minlength: 1,
         maxlength: 20
     },
@@ -21,13 +21,12 @@ const parentSchema = new Schema(
         required: true,
         minlength: 5
     },
-    children: [ChildSchema]
-
-  },
-  {
-    toJSON: {
-      getters: true
-    }
+    children: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Child'
+        }
+    ]
   }
 );
 

@@ -1,3 +1,4 @@
 const Parent = require('./Parent');
+const Child = require('./Child');
 
-module.exports = {Parent, }
+module.exports = {Parent, Child, }
