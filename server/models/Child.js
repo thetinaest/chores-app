@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const choreSchema = require('./Chore');
 
 const childSchema = new Schema(
   {
