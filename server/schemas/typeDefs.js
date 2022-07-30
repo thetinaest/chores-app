@@ -32,12 +32,9 @@ const typeDefs = gql`
   }
 
   type Query {
-    parent(_id: ID): Parent
-    Parents: [Parent]
-    Parent(_id: ID, username: String, email: String): Parent
+    parents: [Parent]
+    parent(_id: ID, username: String, email: String): Parent
     chores(name: String!): [Chore]
-    chore(_id: ID!): Chore
-    child(_id: ID): Child
     child(_id: ID, username: String, ): Child
   }
 
