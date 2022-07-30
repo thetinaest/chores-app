@@ -32,8 +32,8 @@ const resolvers = {
 			}
 			return await Child.findOne(where)
         }
-    },
-	Mutation: {
+	},	
+	Mutation:{
 	
 		loginParent: async (parent, args, context, info) => {
 			// finds user by their username
@@ -106,7 +106,8 @@ const resolvers = {
 			return await Child.findByIdAndDelete(args._id)
 		},
 	
-	}
+	},
 }
+
 
 module.exports = resolvers
