@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { Parent, Child } = require('../models');
+const { Parent, Child, } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -7,7 +7,7 @@ const resolvers = {
 		parents: async (parent, args, context, info) => {
 			return await Parent.find()
 		},
-		parent: async (parent, args, context, info) {
+		parent: async (parent, args, context, info) => {
 			const where = {}
 			if (args._id){
 				where._id = args._id
@@ -19,47 +19,95 @@ const resolvers = {
 				where.username = args.username
 			}
 		
-			return await User.findOne(where)
+			return await Parent.findOne(where)
+            
 		},
+		child: async (parent, args, context, info) => {
+			const where = {}
+			if (args._id){
+				where._id = args._id
+			}
+			if (args.username){
+				where.username = args.username
+			}
+			return await Child.findOne(where)
+        },
+	
 	Mutation:{
 	
-		login: async (parent, args, context, info) => {
+		loginParent: async (parent, args, context, info) => {
 			// finds user by their username
-			const user = await User.findOne({ username: args.username })
+			const parental = await Parent.findOne({ username: args.username })
 			//if it cant be found, throws error
-			if (!user) {
-				throw new AuthenticationError ('No user found with that username!!')
+			if (!parental) {
+				throw new AuthenticationError ('No parent found with that username!!')
 			}
 			//validate password
-			const isCorrectPW = await user.isCorrectPassword(args.password)
+			const isCorrectPW = await parental.isCorrectPassword(args.password)
 			//validates password
 			if (!isCorrectPW) {
 				throw new AuthenticationError('Invalid Password!!')
-			//sign token :)
-			const token = signToken(user)
-			//return auth type
-			return {
-				token,
-				user,
+				//sign token
+				const token = signToken(parental)
+				//return auth type
+				return {
+					token,
+					parental,
+				}
 			}
 		},
-		addUser: async (parent, args, context, info) => {
-			const newUser = await User.create(args)
-			const token = signToken(newUser)
+		addParent: async (parent, args, context, info) => {
+			const newParent = await Parent.create(args)
+			const token = signToken(newParent)
 			return {
-				user: newUser,
+				parent: newParent,
 				token,
 			}
 		},
-		updateUser: async (parent, args, context, info) => {
-			return await User.findByIdAndUpdate(args._id, args, { new: true })
+		loginChild: async (parent, args, context, info) => {
+			// finds user by their username
+			const child = await Child.findOne({ username: args.username })
+			//if it cant be found, throws error
+			if (!child) {
+				throw new AuthenticationError ('No child found with that username!!')
+			}
+			//validate password
+			const isCorrectPW = await child.isCorrectPassword(args.password)
+			//validates password
+			if (!isCorrectPW) {
+				throw new AuthenticationError('Invalid Password!!')
+				//sign token
+				const token = signToken(child)
+				//return auth type
+				return {
+					token,
+					child,
+				}
+			}
 		},
-		deleteUser: async (parent, args, context, info) => {
-			return await User.findByIdAndDelete(args._id)
+		addChild: async (parent, args, context, info) => {
+			const newChild = await Child.create(args)
+			const token = signToken(newChild)
+			return {
+				child : newChild,
+				token,
+			}
+		},
+		updateParent: async (parent, args, context, info) => {
+			return await Parent.findByIdAndUpdate(args._id, args, { new: true })
+		},
+		updateChild: async (parent, args, context, info) => {
+			return await Child.findByIdAndUpdate(args._id, args, { new: true })
+		},
+		deleteParent: async (parent, args, context, info) => {
+			return await Parent.findByIdAndDelete(args._id)
+		},
+		deleteChild: async (parent, args, context, info) => {
+			return await Child.findByIdAndDelete(args._id)
 		},
 	
 	},
 	}
-
+}
 
 module.exports = resolvers
