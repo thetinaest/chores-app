@@ -17,14 +17,20 @@ const choreSchema = new Schema(
         required: true,
 
     },
-    allowance: {
-        type: Number
-    },
+    // allowance: {
+    //     type: Number
+    // },
     createdAt: {
         type: Date,
         default: Date.now,
         get: timestamp => dateFormat(timestamp)
-    }
+    },
+    paid: {
+        type: Boolean,
+    },
+    approve: {
+      type: Boolean,
+    },
   },
   {
     toJSON: {

@@ -16,7 +16,6 @@ const typeDefs = gql`
     approve: Boolean
     paid: Boolean
     createdAt: String
-    allowance: Number
   }
 
   type Child {
@@ -25,23 +24,27 @@ const typeDefs = gql`
     chores: [Chore]
   }
 
-  type Auth {
+  type parentAuth {
     token: ID!
     parent: Parent
+  }
+
+  type childAuth {
+    token: ID
     child: Child
   }
 
   type Query {
     parents: [Parent]
     parent(_id: ID, username: String, email: String): Parent
-    chores(name: String!): [Chore]
     child(_id: ID, username: String, ): Child
   }
 
 	type Mutation {
-		login(username: String!, password: String!): Auth
-		addParent(username: String!, email: String!, password: String!): Auth
-    addChild(username: String!, password: String!): Auth
+		loginParent(username: String!, password: String!): parentAuth
+		addParent(username: String!, email: String!, password: String!): parentAuth
+    loginChild(username: String!, password: String!): childAuth
+    addChild(username: String!, password: String!): childAuth
 		updateParent(_id: ID, email: String, password: String, username: String): Parent
     updateChild(_id: ID, email: String, password: String, username: String): Child
 		deleteParent(_id: ID): Parent
