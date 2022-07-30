@@ -32,20 +32,24 @@ const typeDefs = gql`
   }
 
   type Query {
-    me: User
-    users: [User]
-    user(username: String!): User
-    thoughts(username: String): [Thought]
-    thought(_id: ID!): Thought
+    parent(_id: ID): Parent
+    Parents: [Parent]
+    Parent(_id: ID, username: String, email: String): Parent
+    chores(name: String!): [Chore]
+    chore(_id: ID!): Chore
+    child(_id: ID): Child
+    child(_id: ID, username: String, ): Child
   }
 
-  type Mutation {
-    login(username: String!, password: String!): Auth
-    addUser(username: String!, email: String!, password: String!): Auth
-    addThought(thoughtText: String!): Thought
-    addReaction(thoughtId: ID!, reactionBody: String!): Thought
-    addFriend(friendId: ID!): User
-  }
+	type Mutation {
+		login(username: String!, password: String!): Auth
+		addParent(username: String!, email: String!, password: String!): Auth
+    addChild(username: String!, password: String!): Auth
+		updateParent(_id: ID, email: String, password: String, username: String): Parent
+    updateChild(_id: ID, email: String, password: String, username: String): Child
+		deleteParent(_id: ID): Parent
+    deleteChild(_id: ID): Child
+	}
 `;
 
 module.exports = typeDefs;
