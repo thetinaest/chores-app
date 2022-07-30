@@ -31,8 +31,8 @@ const resolvers = {
 				where.username = args.username
 			}
 			return await Child.findOne(where)
-        },
-	
+        }
+	},	
 	Mutation:{
 	
 		loginParent: async (parent, args, context, info) => {
@@ -107,7 +107,7 @@ const resolvers = {
 		},
 	
 	},
-	}
 }
+
 
 module.exports = resolvers
