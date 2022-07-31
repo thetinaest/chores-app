@@ -84,13 +84,14 @@ const resolvers = {
 			//validates password
 			if (!isCorrectPW) {
 				throw new AuthenticationError('Invalid Password!!')
-				//sign token
-				const token = signToken(child)
-				//return auth type
-				return {
-					token,
-					child,
-				}
+			}
+
+			//sign token
+			const token = signToken(child)
+			//return auth type
+			return {
+				token,
+				child
 			}
 		},
 		addChild: async (parent, args, context, info) => {
