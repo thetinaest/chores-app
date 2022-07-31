@@ -96,7 +96,7 @@ const resolvers = {
 		addChild: async (parent, args, context, info) => {
 			const newChild = await Child.create(args)
 			.then((child) => {
-				Parent.findByIdAndUpdate({_id: args.parentId}, {$push: {children: child._id}}, {new: true})
+				return Parent.findByIdAndUpdate({_id: args.parentId}, {$push: {children: child._id}}, {new: true})
 			})
 			const token = signToken(newChild)
 			return {
@@ -119,7 +119,7 @@ const resolvers = {
 		addChore: async (parent, args, context, info) => {
 			const newChore = await Chore.create(args)
 			.then((chore) => {
-				Child.findByIdAndUpdate({_id: args.childId}, {$push: {chores: chore._id}}, {new: true})
+				return Child.findByIdAndUpdate({_id: args.childId}, {$push: {chores: chore._id}}, {new: true})
 			})
 			return {
 				chore : newChore,
