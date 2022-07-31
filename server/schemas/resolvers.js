@@ -1,4 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
+const { sign } = require('jsonwebtoken');
 const { Parent, Child, Chore} = require('../models');
 const { signToken } = require('../utils/auth');
 
@@ -21,6 +22,9 @@ const resolvers = {
 			}
 		
 			return await Parent.findOne(where)
+				.populate({
+					path: 'children'
+				})
             
 		},
 		child: async (parent, args, context, info) => {
@@ -32,6 +36,9 @@ const resolvers = {
 				where.username = args.username
 			}
 			return await Child.findOne(where)
+				.populate({
+					path: 'chores'
+				})
         }
 	},	
 	Mutation:{
@@ -88,6 +95,9 @@ const resolvers = {
 		},
 		addChild: async (parent, args, context, info) => {
 			const newChild = await Child.create(args)
+			.then((child) => {
+				Parent.findByIdAndUpdate({_id: args.parentId}, {$push: {children: child._id}}, {new: true})
+			})
 			const token = signToken(newChild)
 			return {
 				child : newChild,
@@ -106,7 +116,21 @@ const resolvers = {
 		deleteChild: async (parent, args, context, info) => {
 			return await Child.findByIdAndDelete(args._id)
 		},
-	
+		addChore: async (parent, args, context, info) => {
+			const newChore = await Chore.create(args)
+			.then((chore) => {
+				Child.findByIdAndUpdate({_id: args.childId}, {$push: {chores: chore._id}}, {new: true})
+			})
+			return {
+				chore : newChore,
+			}
+		},
+		updateChore: async (parent, args, context, info) => {
+			return await Chore.findByIdAndUpdate(args._id, args, { new: true })
+		},
+		deleteChore: async (parent, args, context, info) => {
+			return await Chore.findByIdAndDelete(args._id)
+		},
 	},
 }
 
