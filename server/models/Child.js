@@ -15,7 +15,12 @@ const childSchema = new Schema(
         required: true,
         minlength: 5
     },
-    chores: [choreSchema]
+    chores: [ 
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Chore'
+      }
+    ]
   }
 );
 

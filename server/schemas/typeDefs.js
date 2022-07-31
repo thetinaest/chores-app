@@ -19,6 +19,7 @@ const typeDefs = gql`
   }
 
   type Child {
+    _id: ID
     username: String
     password: String
     chores: [Chore]
@@ -45,7 +46,7 @@ const typeDefs = gql`
 		addParent(username: String!, email: String!, password: String!): parentAuth
     loginChild(username: String!, password: String!): childAuth
     addChild(username: String!, password: String!): childAuth
-		updateParent(_id: ID, email: String, password: String, username: String): Parent
+		updateParent(_id: ID, email: String, password: String, username: String, children: [ID]): Parent
     updateChild(_id: ID, email: String, password: String, username: String): Child
 		deleteParent(_id: ID): Parent
     deleteChild(_id: ID): Child

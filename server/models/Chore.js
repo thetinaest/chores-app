@@ -39,4 +39,6 @@ const choreSchema = new Schema(
   }
 );
 
-module.exports = choreSchema;
+const Chore = model('Chore', choreSchema);
+
+module.exports = Chore;
