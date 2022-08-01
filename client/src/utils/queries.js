@@ -1,21 +1,26 @@
-import { gql } from @apollo/client;
+import { gql } from "@apollo/client"; 
 
 export const QUERY_PARENT = gql`
-{
-    parent {
-        _id
+query parent($_id: ID) {
+    parent(_id: $_id) {
+      children {
+        _id,
         username
-        children {
-            _id
-            username
-           chores{
-            _id
-            name
-            description
-            complete
-            allowance
-           } 
-        }
+      }
     }
-}`
+  }
+`;
+
+export const QUERY_CHILD = gql`
+  query child($_id: ID, $username: String) {
+    child(_id: $_id, username: $username) {
+      _id
+      chores {
+        _id
+        name
+      }
+    }
+  }
+  `;
+
 
