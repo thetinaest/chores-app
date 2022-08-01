@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 import Auth from '../../utils/auth';
 
-function Header(props) {
+const Header = () => {
 
     // logout user
     const logout = e => {
