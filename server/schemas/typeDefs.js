@@ -52,7 +52,7 @@ const typeDefs = gql`
 		deleteParent(_id: ID): Parent
     deleteChild(_id: ID): Child
     addChore(childId: ID!, name: String!, description: String!): Chore
-    updateChore(_id: ID, name: String!, description: String!, complete: Boolean, paid: Boolean, approve: Boolean): Chore
+    updateChore(_id: ID, name: String, description: String, complete: Boolean, paid: Boolean, approve: Boolean): Chore
     deleteChore(_id: ID): Chore
 	}
 `;
