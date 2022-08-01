@@ -37,17 +37,10 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-    <Router>
-      <div>
-        
-          <Nav />
-          <Switch>
+    <Router>     
             <Route exact path="/" component={Dashboard} />
             <Route exact path="/login-parent" component={LoginParent} />
             <Route exact path="/login-child" component={LoginChild} />
-          </Switch>
-        
-      </div>
     </Router>
   </ApolloProvider>
   );
