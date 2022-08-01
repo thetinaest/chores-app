@@ -10,6 +10,7 @@ const typeDefs = gql`
   }
 
   type Chore {
+    _id: ID
     name: String
     description: String
     complete: Boolean

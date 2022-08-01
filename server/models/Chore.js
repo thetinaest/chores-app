@@ -14,7 +14,7 @@ const choreSchema = new Schema(
     },
     complete: {
         type: Boolean,
-        required: true,
+        default: false
 
     },
     // allowance: {
@@ -27,9 +27,11 @@ const choreSchema = new Schema(
     },
     paid: {
         type: Boolean,
+        default: false
     },
     approve: {
       type: Boolean,
+      default: false
     },
   },
   {
