@@ -1,5 +1,6 @@
 const ChoreCard = (props) => {
-    const {name, description} = props;
+    const {chore} = props;
+    const {name, description} = chore;
 
     return (
         <div>

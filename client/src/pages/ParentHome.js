@@ -15,28 +15,28 @@ const ParentHome = () => {
     
     // get current user parent profile
     const profile = Auth.getProfile();
-    console.log(profile.data._id);
+    // console.log(profile.data._id);
 
     // query user data from parent collection
     const { loading, error, data: parentData } = useQuery(QUERY_PARENT, {
       variables: { _id: profile.data._id },
     });
 
-      // check if user is logged in
-      if (Auth.loggedIn() && profile.data.username) {
-        
-      } else {
-        // navigate to dashboard if not logged in
-        navigate('/');
-      }
+    // check if user is logged in
+    if (Auth.loggedIn() && profile.data.username) {
+      
+    } else {
+      // navigate to dashboard if not logged in
+      navigate('/');
+    }
 
-      useEffect( () => {
-        if (!loading){
-          console.log(parentData);
-          console.log(parentData.parent.children);
-          setChildren(parentData.parent.children);
-        }
-      }, [loading])
+    useEffect( () => {
+      if (!loading){
+        // console.log(parentData);
+        // console.log(parentData.parent.children);
+        setChildren(parentData.parent.children);
+      }
+    }, [loading])
 
 
   
