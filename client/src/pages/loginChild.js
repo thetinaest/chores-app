@@ -1,13 +1,13 @@
 import { useState } from 'react'
-import { loginChild } from '../utils/mutations'
+import {LOGIN_CHILD} from '../utils/mutations'
 import { useMutation } from '@apollo/client'
-import { AuthService } from '../utils/auth'
+import  AuthService  from '../utils/auth'
 
 const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
-    const [login, loading, error ] = useMutation(loginChild)
+    const [login, {loading, error} ] = useMutation(LOGIN_CHILD)
 
     const handleSubmit = async e => {
         e.preventDefault()
@@ -17,7 +17,7 @@ const Login = () => {
                 password
             }
         })
-        AuthService.login(data.loginChild.token)
+        AuthService.login(data.LOGIN_CHILD.token)
     }
 
     

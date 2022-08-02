@@ -1,13 +1,13 @@
 import { useState } from 'react'
-import { loginParent } from '../utils/mutations'
+import { LOGIN_PARENT } from '../utils/mutations'
 import { useMutation } from '@apollo/client'
-import { AuthService } from '../utils/auth'
+import  AuthService  from '../utils/auth'
 
 const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 // loading will proc when the page is loading. Error will proc if an error is encountered
-    const [login, loading, error ] = useMutation(loginParent)
+    const [login, {loading, error} ] = useMutation(LOGIN_PARENT)
 
     const handleSubmit = async e => {
         e.preventDefault()
@@ -17,7 +17,7 @@ const Login = () => {
                 password
             }
         })
-        AuthService.login(data.loginParent.token)
+        AuthService.login(data.LOGIN_PARENT.token)
     }
  
     if (loading) return 'Loading...'
