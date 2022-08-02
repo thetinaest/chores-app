@@ -16,9 +16,10 @@ import { setContext } from '@apollo/client/link/context';
 import LoginParent from './pages/loginParent';
 import LoginChild from './pages/loginChild';
 import Dashboard from './pages/dashboard';
+import ParentHome from './pages/ParentHome';
 
 const httpLink = createHttpLink({
-  uri: '/graphql',
+  uri: '/graphql'
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -36,25 +37,15 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 function App() {
-  // what type of user is signed in
-  const [userType, setUserType] = useState('');
-  // user id
-  const [userId, setUserId] = useState('');
-
 
   return (
     <ApolloProvider client={client}>
     <Router>     
       <Routes>
         <Route exact path="/" element={<Dashboard />} />
-        <Route exact path="/login-parent" element={<LoginParent 
-        setUserType={setUserType}
-        setUserId={setUserId}
-        />} />
-        <Route exact path="/login-child" element={<LoginChild 
-        setUserType={setUserType}
-        setUserId={setUserId}
-        />} />
+        <Route exact path="/login-parent" element={<LoginParent />} />
+        <Route exact path="/login-child" element={<LoginChild />} />
+        <Route exact path="/parent-home" element={<ParentHome />} />
       </Routes>
             
     </Router>

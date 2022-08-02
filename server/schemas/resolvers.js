@@ -56,10 +56,14 @@ const resolvers = {
 			if (!isCorrectPW) {
 				throw new AuthenticationError('Invalid Password!!')
 			}
-
-			console.log(parental)
+			
 			//sign token
-			const token = signToken(parental)
+			const token = signToken({
+				username: parental.username,
+				email: parental.email,
+				_id: parental._id,
+				userType: 'parent'
+			})
 			//return auth type
 			return {
 				token,
@@ -89,7 +93,11 @@ const resolvers = {
 			}
 
 			//sign token
-			const token = signToken(child)
+			const token = signToken({
+				username: child.username,
+				_id: child._id,
+				userType: 'child'
+			})
 			//return auth type
 			return {
 				token,

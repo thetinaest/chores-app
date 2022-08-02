@@ -1,14 +1,14 @@
 import { gql } from "@apollo/client";
 
 export const LOGIN_PARENT = gql`
-mutation loginParent($username: String! $password: String!) {
-    loginParent(username: $username, password: $passwsord) {
-        token
-        parent {
-            _id
-            username
-        }
+mutation loginParent($username: String!, $password: String!) {
+  loginParent(username: $username, password: $password) {
+    token,
+    parent {
+      _id
+      username
     }
+  }
 }
 `;
 

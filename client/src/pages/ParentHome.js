@@ -3,29 +3,28 @@ import { useMutation, useQuery } from "@apollo/client";
 import { ADD_CHILD } from "../utils/mutations";
 import { QUERY_PARENT } from "../utils/queries";
 import Auth from "../utils/auth";
+import {useNavigate} from 'react-router-dom';
 
 import ChildCard from '../components/ChildCard';
 
 // add parent homescreen function
-const ParentHome = async (props) => {
-    const { userId } = props 
-
+const ParentHome = async () => {
+    const navigate = useNavigate();
     const [addChild] = useMutation(ADD_CHILD);
-    const [ queryParent, { loading, data }] = useQuery(QUERY_PARENT) 
-
-    const currentParent = await queryParent({
-      variables: {
-        _id: userId
-      }
-    })
-
-    const children = currentParent.children;
+    // const [ queryParent, { loading, data }] = useQuery(QUERY_PARENT)
     
 
-
-  // navigate to profile
-  if (Auth.loggedIn() && Auth.getProfile().data.username ) {
-      return <Navigate to="/profile:username" />;
+  // check if user is logged in
+  if (Auth.loggedIn() && Auth.getProfile().data.username) {
+    // query user data from parent collection
+    const { loading, error, data: parentData } = useQuery(QUERY_PARENT, {
+      variables: { _id: Auth.getProfile().data._id },
+    });
+    console.log(parentData);
+    const children = parentData.children;
+  } else {
+    // navigate to dashboard if not logged in
+    navigate('/');
   }
 
   if (loading) {
@@ -57,3 +56,4 @@ const ParentHome = async (props) => {
 
 }
 
+export default ParentHome;

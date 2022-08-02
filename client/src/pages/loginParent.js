@@ -3,34 +3,29 @@ import { LOGIN_PARENT } from '../utils/mutations'
 import { QUERY_PARENT} from '../utils/queries';
 import { useMutation, useQuery } from '@apollo/client'
 import  AuthService  from '../utils/auth'
+import {useNavigate} from 'react-router-dom';
 
-const Login = (props) => {
-    const {setUserId} = props
+const Login = () => {
+    const navigate = useNavigate();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 // loading will proc when the page is loading. Error will proc if an error is encountered
-    const [login, {loading, error} ] = useMutation(LOGIN_PARENT)
+    const [loginParent, {loading, error} ] = useMutation(LOGIN_PARENT)
 
 
     const handleSubmit = async e => {
         e.preventDefault()
-        //use query
-        const {data} = await login({
-            variables: {
-                username,
-                password
-            }
-        })
-        AuthService.login(data.LOGIN_PARENT.token)
-
-        const {data: currentParent} = useQuery(QUERY_PARENT,
-            {
-                variables: {
-                    username
-                }
-            })
         
-        setUserId(currentParent._id)
+        try {
+            const {data} = await loginParent({
+                variables: { username, password}
+              })
+            // console.log(data)
+            AuthService.login(data.loginParent.token)
+            navigate('/parent-home');
+        } catch (err) {
+            console.log(err);
+        }
     }
  
     if (loading) return 'Loading...'
