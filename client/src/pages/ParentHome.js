@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { ADD_CHILD } from "../utils/mutations";
 import { QUERY_PARENT } from "../utils/queries";
@@ -8,28 +8,44 @@ import {useNavigate} from 'react-router-dom';
 import ChildCard from '../components/ChildCard';
 
 // add parent homescreen function
-const ParentHome = async () => {
+const ParentHome = () => {
+    const [children, setChildren] = useState([]);
     const navigate = useNavigate();
     const [addChild] = useMutation(ADD_CHILD);
-    // const [ queryParent, { loading, data }] = useQuery(QUERY_PARENT)
     
+    // get current user parent profile
+    const profile = Auth.getProfile();
+    console.log(profile.data._id);
 
-  // check if user is logged in
-  if (Auth.loggedIn() && Auth.getProfile().data.username) {
     // query user data from parent collection
     const { loading, error, data: parentData } = useQuery(QUERY_PARENT, {
-      variables: { _id: Auth.getProfile().data._id },
+      variables: { _id: profile.data._id },
     });
-    console.log(parentData);
-    const children = parentData.children;
-  } else {
-    // navigate to dashboard if not logged in
-    navigate('/');
-  }
 
-  if (loading) {
-      return <div> Loading....</div>
-  }
+      // check if user is logged in
+      if (Auth.loggedIn() && profile.data.username) {
+        
+      } else {
+        // navigate to dashboard if not logged in
+        navigate('/');
+      }
+
+      useEffect( () => {
+        if (!loading){
+          console.log(parentData);
+          console.log(parentData.parent.children);
+          setChildren(parentData.parent.children);
+        }
+      }, [loading])
+
+
+  
+
+  // if (loading) {
+  //     return <div> Loading....</div>
+  // } else {
+  //   console.log(data);
+  // }
 
   //add handleclick for adding child(ren) 
 
@@ -47,8 +63,9 @@ const ParentHome = async () => {
   //return html
   return (
     <>
+      <div>{loading ? 'Loading' : `Rendering the children of ${profile.data.username}`}</div>
       {children.map(child => {
-        <ChildCard child={child}/>
+        return <ChildCard child={child} key={child._id}/>
       })}
     </>
         
