@@ -55,13 +55,15 @@ const resolvers = {
 			//validates password
 			if (!isCorrectPW) {
 				throw new AuthenticationError('Invalid Password!!')
-				//sign token
-				const token = signToken(parental)
-				//return auth type
-				return {
-					token,
-					parental,
-				}
+			}
+
+			console.log(parental)
+			//sign token
+			const token = signToken(parental)
+			//return auth type
+			return {
+				token,
+				parent: parental,
 			}
 		},
 		addParent: async (parent, args, context, info) => {
