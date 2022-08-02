@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import {
   ApolloClient,
@@ -35,13 +35,21 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 function App() {
+  // what type of user is signed in
+  const [userType, setUserType] = useState('');
+
+
   return (
     <ApolloProvider client={client}>
     <Router>     
       <Routes>
         <Route exact path="/" element={<LoginParent />} />
-        <Route exact path="/login-parent" element={<LoginParent />} />
-        <Route exact path="/login-child" element={<LoginChild />} />
+        <Route exact path="/login-parent" element={<LoginParent 
+        setUserType={setUserType}
+        />} />
+        <Route exact path="/login-child" element={<LoginChild 
+        setUserType={setUserType}
+        />} />
       </Routes>
             
     </Router>
