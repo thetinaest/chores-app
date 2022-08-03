@@ -8,7 +8,7 @@ const Login = () => {
     const navigate = useNavigate();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-// loading will proc when the page is loading. Error will proc if an error is encountered
+    // loading will proc when the page is loading. Error will proc if an error is encountered
     const [loginParent, {loading, error} ] = useMutation(LOGIN_PARENT)
 
 

@@ -9,7 +9,6 @@ import ChildCard from '../components/ChildCard';
 
 // add parent homescreen function
 const ParentHome = () => {
-    const [children, setChildren] = useState([]);
     const navigate = useNavigate();
     const [addChild] = useMutation(ADD_CHILD);
     
@@ -22,6 +21,10 @@ const ParentHome = () => {
       variables: { _id: profile.data._id },
     });
 
+    const children = parentData?.parent.children || [];
+
+    console.log(parentData);
+
     // check if user is logged in
     if (Auth.loggedIn() && profile.data.username) {
       
@@ -30,13 +33,13 @@ const ParentHome = () => {
       navigate('/');
     }
 
-    useEffect( () => {
-      if (!loading){
-        // console.log(parentData);
-        // console.log(parentData.parent.children);
-        setChildren(parentData.parent.children);
-      }
-    }, [loading])
+    // useEffect( () => {
+    //   if (!loading){
+    //     // console.log(parentData);
+    //     // console.log(parentData.parent.children);
+    //     setChildren(parentData.parent.children);
+    //   }
+    // }, [loading])
 
 
   

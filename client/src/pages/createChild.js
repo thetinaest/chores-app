@@ -1,19 +1,22 @@
 import { useState } from 'react'
-import { useMutation } from '@apollo/client'
+import { useMutation, useQuery, gql } from '@apollo/client'
 import {ADD_CHILD} from '../utils/mutations';
 import {useNavigate} from 'react-router-dom';
 import Auth from '../utils/auth';
+import {QUERY_PARENT} from '../utils/queries';
+
 
 const createChild = () => {
     const navigate = useNavigate();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
-    const [createChild, loading, error ] = useMutation(ADD_CHILD)
-
     // get current user parent profile
     const profile = Auth.getProfile();
 
+    // query user data from parent collection
+    const [createChild, loading, error ] = useMutation(ADD_CHILD)
+    
     const handleSubmit = async e => {
         e.preventDefault()
         
@@ -23,7 +26,11 @@ const createChild = () => {
                     username,
                     password,
                     parentId: profile.data._id
-                }
+                },
+                refetchQueries: [
+                    {query: QUERY_PARENT}, // DocumentNode object parsed with gql
+                    'parent' // Query name
+                ],
             })
             navigate('/parent-home');
         } catch (err) {
