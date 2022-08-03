@@ -16,7 +16,7 @@ const Header = () => {
         <>
         <h1>Jessie's List</h1>
 
-        {loggedIn && <Link to="/dashboard" onClick={logout}/>}
+        {loggedIn && <Link to="/dashboard" onClick={logout}>Logout</Link>}
         </>
     )
     

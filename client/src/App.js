@@ -11,6 +11,7 @@ import { setContext } from '@apollo/client/link/context';
 // import providers for global state (if nessessary)
 
 // import components
+import Header from './components/Header';
 
 // import pages
 import LoginParent from './pages/loginParent';
@@ -18,8 +19,9 @@ import LoginChild from './pages/loginChild';
 import Dashboard from './pages/dashboard';
 import ParentHome from './pages/ParentHome';
 import ParentView from './pages/ParentView';
-import ChildHome from './pages/ChildHome';
 import CreateChild from './pages/createChild';
+import AddChore from './pages/addChore';
+import ChildHome from './pages/ChildHome';
 import SignUp from './pages/SignUp';
 
 const httpLink = createHttpLink({
@@ -45,14 +47,16 @@ function App() {
   return (
     <ApolloProvider client={client}>
     <Router>     
+      <Header />
       <Routes>
         <Route exact path="/" element={<Dashboard />} />
         <Route exact path="/login-parent" element={<LoginParent />} />
         <Route exact path="/login-child" element={<LoginChild />} />
         <Route exact path="/parent-home" element={<ParentHome />} />
+        <Route exact path="/create-child" element={<CreateChild />} />
+        <Route path="/add-chore" element={<AddChore />} />
         <Route exact path="/children/:childId" element={<ParentView />} />
         <Route exact path="/child-home" element={<ChildHome />} />
-        <Route exact path="/create-child" element={<CreateChild />} />
         <Route exact path="/sign-up" element={<SignUp />} />
       </Routes>
             

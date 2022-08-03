@@ -1,25 +1,56 @@
 import { useState } from 'react'
-import { useMutation } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
+import {ADD_CHORE} from '../utils/mutations';
+import {QUERY_PARENT, QUERY_CHILD} from '../utils/queries';
+import Auth from '../utils/auth';
+import {useNavigate} from 'react-router-dom';
 
 const addChore = () => {
-    const [addChore, loading, error ] = useMutation(addChore)
+    const navigate = useNavigate();
+    const [addChore] = useMutation(ADD_CHORE)
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
+    const [child, setChild] = useState('');
+
+    // get current user parent profile
+    const profile = Auth.getProfile();
+    // console.log(profile.data._id);
+
+    // query user data from parent collection
+    const { loading, error, data: parentData } = useQuery(QUERY_PARENT, {
+      variables: { _id: profile.data._id },
+    });
+
+    const children = parentData?.parent.children || [];
 
     const handleSubmit = async e => {
         e.preventDefault()
-        const {data} = await addChore({
-            variables: {
-                name, 
-                description
-            }
-        })
+
+        
+        const childId = children.filter(fchild => fchild.username === child)[0]._id
+
+        try {
+            const {data} = await addChore({
+                variables: {
+                    name, 
+                    description,
+                    childId
+                },
+                refetchQueries: [
+                    {query: QUERY_CHILD}, // DocumentNode object parsed with gql
+                    'child' // Query name
+                ],
+            })
+            navigate(`/children/${childId}`)
+        } catch (err) {
+            console.log(err);
+        }
     }
 
 
-    if (loading) return 'Loading...'
+    // if (loading) return 'Loading...'
 
-    if (error) return `Error! ${error.message}`
+    // if (error) return `Error! ${error.message}`
 
 
     return (
@@ -36,12 +67,27 @@ const addChore = () => {
             />
             <input
                 name="description"
-                value={password}
+                value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Chore Description"
                 type="text"
                 required
             />
+            <input 
+                type="text" 
+                list="childList" 
+                placeholder="Child"
+                value={child}
+                onChange={(e) => {
+                    setChild(e.target.value);
+                }}
+            />
+            <datalist id="childList">
+                {children.map(child => {
+                    return <option value={child.username} key={child._id}/>
+                })}
+            </datalist>
+
             <button type="submit">Submit</button>
         </form>
     )
