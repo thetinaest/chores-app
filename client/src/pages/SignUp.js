@@ -1,11 +1,12 @@
 import {ADD_PARENT} from '../utils/mutations';
 import { useState } from 'react';
+import {useMutation} from '@apollo/client';
 
 const SignUp = (props) => {
     const {setUserType} = props;
     const [addParent, {loading, error}] = useMutation(ADD_PARENT);
     const [username, setUsername] = useState('')
-    cosnt [email, setEmail] = useState('')
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
 
