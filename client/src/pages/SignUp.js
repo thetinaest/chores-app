@@ -11,6 +11,8 @@ const SignUp = (props) => {
 
     const handleSubmit = async e => {
         e.preventDefault()
+
+        try {
         const {data} = await addParent({
             variables: {
                 username,
@@ -19,6 +21,9 @@ const SignUp = (props) => {
             }
         })
         AuthService.addParent(data.addParent.token)
+    } catch (err) {
+        console.log(err);
+    }
     }
 
     return(
