@@ -1,12 +1,18 @@
 import { useState } from 'react'
 import { useMutation } from '@apollo/client'
+import {ADD_CHILD} from '../utils/mutations';
+import {useNavigate} from 'react-router-dom';
+import Auth from '../utils/auth';
 
 const createChild = () => {
     const navigate = useNavigate();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
-    const [createChild, loading, error ] = useMutation(createChild)
+    const [createChild, loading, error ] = useMutation(ADD_CHILD)
+
+    // get current user parent profile
+    const profile = Auth.getProfile();
 
     const handleSubmit = async e => {
         e.preventDefault()
@@ -15,7 +21,8 @@ const createChild = () => {
             const {data} = await createChild({
                 variables: {
                     username,
-                    password
+                    password,
+                    parentId: profile.data._id
                 }
             })
             navigate('/parent-home');
@@ -25,9 +32,9 @@ const createChild = () => {
     }
 
 
-    if (loading) return 'Loading...'
+    // if (loading) return 'Loading...'
 
-    if (error) return `Error! ${error.message}`
+    // if (error) return `Error! ${error.message}`
 
 
     // login form set to require username and password
@@ -51,7 +58,7 @@ const createChild = () => {
                 type="password"
                 required
             />
-            <button type="submit">Login</button>
+            <button type="submit">Create Child</button>
         </form>
     )
 }
