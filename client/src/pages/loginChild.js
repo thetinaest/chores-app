@@ -2,22 +2,30 @@ import { useState } from 'react'
 import {LOGIN_CHILD} from '../utils/mutations'
 import { useMutation } from '@apollo/client'
 import  AuthService  from '../utils/auth'
+import {useNavigate} from 'react-router-dom';
 
 const Login = () => {
+    const navigate = useNavigate();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
-    const [login, {loading, error} ] = useMutation(LOGIN_CHILD)
+    const [loginChild, {loading, error} ] = useMutation(LOGIN_CHILD)
 
     const handleSubmit = async e => {
         e.preventDefault()
-        const {data} = await login({
-            variables: {
-                username,
-                password
-            }
-        })
-        AuthService.login(data.LOGIN_CHILD.token)
+
+        try {
+            const {data} = await loginChild({
+                variables: {
+                    username,
+                    password
+                }
+            })
+            AuthService.login(data.loginChild.token)
+            navigate('/child-home');
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     

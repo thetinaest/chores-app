@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { LOGIN_PARENT } from '../utils/mutations'
-import { QUERY_PARENT} from '../utils/queries';
-import { useMutation, useQuery } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import  AuthService  from '../utils/auth'
 import {useNavigate} from 'react-router-dom';
 

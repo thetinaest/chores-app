@@ -25,14 +25,14 @@ mutation addParent($username: String!, $email: String!, $password: String!) {
 `;
 
 export const LOGIN_CHILD = gql`
-mutation loginChild($username: String! $password: String!) {
-    loginChild(username: $username, password: $passwsord) {
-        token
-        child {
-            _id
-            username
-        }
+mutation LoginChild($username: String!, $password: String!) {
+  loginChild(username: $username, password: $password) {
+    token
+    child {
+      _id
+      username
     }
+  }
 }
 `;
 
