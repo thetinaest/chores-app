@@ -53,6 +53,7 @@ const ParentView = () => {
     return (
         <>
         <Link to="/parent-home">Home</Link>
+        <Link to="/add-chore">Add Chore</Link>
         <h3>{childName}'s Chores</h3>
             {chores.filter(chore => {
                 const {complete, approve, paid} = chore;
