@@ -19,6 +19,7 @@ import Dashboard from './pages/dashboard';
 import ParentHome from './pages/ParentHome';
 import ParentView from './pages/ParentView';
 import ChildHome from './pages/ChildHome';
+import CreateChild from './pages/createChild';
 
 const httpLink = createHttpLink({
   uri: '/graphql'
@@ -50,6 +51,7 @@ function App() {
         <Route exact path="/parent-home" element={<ParentHome />} />
         <Route exact path="/children/:childId" element={<ParentView />} />
         <Route exact path="/child-home" element={<ChildHome />} />
+        <Route exact path="/create-child" element={<CreateChild />} />
       </Routes>
             
     </Router>
