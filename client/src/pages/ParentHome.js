@@ -22,8 +22,6 @@ const ParentHome = () => {
 
     const children = parentData?.parent.children || [];
 
-    console.log(parentData);
-
     // check if user is logged in
     if (Auth.loggedIn() && profile.data.username) {
       
@@ -36,9 +34,9 @@ const ParentHome = () => {
   //return html
   return (
     <>
-      <div>{loading ? 'Loading' : `Rendering the children of ${profile.data.username}`}</div>
       <Link to='/create-child'>Create Child</Link>
       <Link to='/add-chore'>Add Chore</Link>
+      <div>{loading ? 'Loading' : `${profile.data.username}'s Children`}</div>
       <div className="d-flex flex-column">
         {children.map(child => {
           return <ChildCard child={child} key={child._id}/>
