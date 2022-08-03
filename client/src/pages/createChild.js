@@ -40,7 +40,7 @@ const createChild = () => {
     // login form set to require username and password
     return (
         <form onSubmit={handleSubmit}>
-            <h1>Login</h1>
+            <h1>Create Child</h1>
             <input
                 name="username"
                 value={username}
