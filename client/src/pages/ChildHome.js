@@ -23,7 +23,7 @@ const ChildHome = () => {
     })
     const chores = childData?.child.chores || [];
 
-    const markComplete = async () => {
+    const markComplete = async (_id) => {
         await updateChore({
             variables: { _id, complete: true}
         })
