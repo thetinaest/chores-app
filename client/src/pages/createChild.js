@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useMutation } from '@apollo/client'
 
 const createChild = () => {
+    const navigate = useNavigate();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
@@ -9,13 +10,18 @@ const createChild = () => {
 
     const handleSubmit = async e => {
         e.preventDefault()
-        const {data} = await createChild({
-            variables: {
-                username,
-                password
-            }
-        })
-        AuthService.login(data.createChild.token)
+        
+        try {
+            const {data} = await createChild({
+                variables: {
+                    username,
+                    password
+                }
+            })
+            navigate('/parent-home');
+        } catch (err) {
+            console.log(err);
+        }
     }
 
 

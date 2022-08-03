@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { ADD_CHILD } from "../utils/mutations";
 import { QUERY_PARENT } from "../utils/queries";
 import Auth from "../utils/auth";
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
 
 import ChildCard from '../components/ChildCard';
 
@@ -67,6 +67,7 @@ const ParentHome = () => {
       {children.map(child => {
         return <ChildCard child={child} key={child._id}/>
       })}
+      <Link to='/create-child'>Create Child</Link>
     </>
         
   )
