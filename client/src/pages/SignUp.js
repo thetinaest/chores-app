@@ -18,7 +18,7 @@ const SignUp = (props) => {
                 password
             }
         })
-        AuthService.addParent(data.ADD_PARENT.token)
+        AuthService.addParent(data.addParent.token)
     }
 
     return(
