@@ -97,8 +97,8 @@ mutation addChore($childId: ID!, $name: String!, $description: String!) {
 `;
 
 export const UPDATE_CHORE = gql`
-mutation UpdateChore($id: ID, $name: String, $description: String, $complete: Boolean, $paid: Boolean, $approve: Boolean) {
-    updateChore(_id: $id, name: $name, description: $description, complete: $complete, paid: $paid, approve: $approve) {
+mutation UpdateChore($_id: ID, $name: String, $description: String, $complete: Boolean, $paid: Boolean, $approve: Boolean) {
+    updateChore(_id: $_id, name: $name, description: $description, complete: $complete, paid: $paid, approve: $approve) {
       _id
       name
       description
