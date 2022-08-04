@@ -1,7 +1,8 @@
-import { Link, Navigate } from 'react-router-dom';
-import Auth from '../utils/auth';
 import Header from "../components/Header"
 import "../App.css";
+import { Link, Navigate } from 'react-router-dom';
+import Auth from '../utils/auth';
+
 
 const Dashboard = () => {
 
