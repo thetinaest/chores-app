@@ -37,7 +37,9 @@ const ChildHome = () => {
 
     return (
         <>
-            {chores.filter(chore => {
+        <h2 className='my-3'>{profile.data.username}'s Chores</h2>
+        <div className='choresList d-flex flex-column align-items-center'>
+        {chores.filter(chore => {
                 const {complete, approve, paid} = chore;
                 return (complete && approve && !paid);
             }).length > 0 &&
@@ -49,7 +51,7 @@ const ChildHome = () => {
             })
             .map(chore => {
                 return (
-                    <div key={chore._id}> 
+                    <div  className='choreCard'  key={chore._id}> 
                     <ChoreCard chore={chore} />
                     </div>
                 )
@@ -66,11 +68,13 @@ const ChildHome = () => {
             })
             .map(chore => {
                 return (
-                    <div key={chore._id}> 
+                    <div  className='choreCard'  key={chore._id}> 
                     <ChoreCard chore={chore} />
-                    <button type="button" onClick={() => {
-                        return redoChore(chore._id);
-                    }}>Redo</button>
+                    <div className='btnGroup'>
+                        <button type="button" onClick={() => {
+                            return redoChore(chore._id);
+                        }}>Redo</button>
+                    </div>
                     </div>
                 )
             })}
@@ -86,14 +90,18 @@ const ChildHome = () => {
             })
             .map(chore => {
                 return (
-                    <div key={chore._id}> 
+                    <div  className='choreCard' key={chore._id}> 
                     <ChoreCard chore={chore} />
-                    <button type="button" onClick={() => {
-                        return markComplete(chore._id);
-                    }}>Mark as Complete</button>
+                    <div className='btnGroup'>
+                        <button type="button" onClick={() => {
+                            return markComplete(chore._id);
+                            }}>Mark as Complete
+                        </button>
+                    </div>
                     </div>
                 )
             })}
+        </div>
         </>
     )
 }

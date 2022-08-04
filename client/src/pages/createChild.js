@@ -46,7 +46,7 @@ const createChild = () => {
 
     // login form set to require username and password
     return (
-        <form onSubmit={handleSubmit}>
+        <form className='d-flex flex-column mt-3' onSubmit={handleSubmit}>
             <h1>Create Child</h1>
             <input
                 name="username"
@@ -61,11 +61,11 @@ const createChild = () => {
                 name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="password"
+                placeholder="Password"
                 type="password"
                 required
             />
-            <button type="submit">Create Child</button>
+            <button type="submit" className='w-100 mt-2 rounded'>Create Child</button>
         </form>
     )
 }
