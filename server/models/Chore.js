@@ -1,4 +1,4 @@
-const { Schema } = require('mongoose');
+const { Schema, model } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
 
 const choreSchema = new Schema(
@@ -14,17 +14,25 @@ const choreSchema = new Schema(
     },
     complete: {
         type: Boolean,
-        required: true,
+        default: false
 
     },
-    allowance: {
-        type: Number
-    },
+    // allowance: {
+    //     type: Number
+    // },
     createdAt: {
         type: Date,
         default: Date.now,
         get: timestamp => dateFormat(timestamp)
-    }
+    },
+    paid: {
+        type: Boolean,
+        default: false
+    },
+    approve: {
+      type: Boolean,
+      default: false
+    },
   },
   {
     toJSON: {
@@ -33,4 +41,6 @@ const choreSchema = new Schema(
   }
 );
 
-module.exports = choreSchema;
+const Chore = model('Chore', choreSchema);
+
+module.exports = Chore;
