@@ -34,7 +34,8 @@ const createChild = () => {
                 },
                 
             })
-            navigate('/parent-home');
+            // navigate('/parent-home');
+            window.location.assign('/parent-home') 
         } catch (err) {
             console.log(err);
         }
