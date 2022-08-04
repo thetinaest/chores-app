@@ -19,7 +19,6 @@ const Dashboard = () => {
     
     return(
         <div className="container">
-        <Header />
         <div className="btnGroup">
             <Link className="link"to='/login-parent'>
                 <button>Parent Login</button>
