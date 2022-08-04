@@ -1,9 +1,11 @@
 import {ADD_PARENT} from '../utils/mutations';
 import { useState } from 'react';
 import {useMutation} from '@apollo/client';
+import AuthService from '../utils/auth';
+import {useNavigate} from 'react-router-dom';
 
 const SignUp = (props) => {
-    const {setUserType} = props;
+    const navigate = useNavigate();
     const [addParent, {loading, error}] = useMutation(ADD_PARENT);
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
@@ -21,7 +23,8 @@ const SignUp = (props) => {
                 password
             }
         })
-        AuthService.addParent(data.addParent.token)
+        AuthService.login(data.addParent.token)
+        navigate('/parent-home');
     } catch (err) {
         console.log(err);
     }
