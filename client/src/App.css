@@ -7,8 +7,16 @@ body{
   text-align: center;
   font-family: 'Dosis', sans-serif;
   background-color: var(--color2);
+  display: flex;
+  justify-content: center;
 }
 
+form input {
+  border-radius: 5px;
+  border: 2px solid var(--color1);
+  height: 50px;
+  margin: 10px 0 5px 0;
+}
 
 .appName{
   font-size: 76px;
@@ -16,7 +24,7 @@ body{
 }
 
 
-.btnGroup button {
+.btnGroup button, form button {
   color: white;
   margin-bottom: 50px;
   border-radius: .15rem;

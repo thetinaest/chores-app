@@ -32,7 +32,7 @@ const SignUp = ({setLoggedIn}) => {
     }
 
     return(
-        <form onSubmit={handleSubmit}>
+        <form className='d-flex flex-column' onSubmit={handleSubmit}>
             <h1>Sign Up</h1>
             <input
                 name="username"
@@ -56,11 +56,11 @@ const SignUp = ({setLoggedIn}) => {
                 name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="password"
+                placeholder="Password"
                 type="password"
                 required
             />
-            <button type="submit">Submit</button>
+            <button type="submit" className='w-100 mt-2 rounded'>Sign Up</button>
             {error && <div>Error! {error.message}</div>}
         </form>
     );
