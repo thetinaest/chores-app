@@ -15,6 +15,7 @@ const Dashboard = () => {
             return <Navigate to='/child-home' />
         }
     }
+    
     return(
         <>
             <Link to='/login-parent'>Parent Login</Link>
