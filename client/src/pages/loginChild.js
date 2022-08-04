@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client'
 import  AuthService  from '../utils/auth'
 import {useNavigate} from 'react-router-dom';
 
-const Login = () => {
+const Login = ({setLoggedIn}) => {
     const navigate = useNavigate();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -22,6 +22,7 @@ const Login = () => {
                 }
             })
             AuthService.login(data.loginChild.token)
+            setLoggedIn(true);
             navigate('/child-home');
         } catch (err) {
             console.log(err);
@@ -31,7 +32,7 @@ const Login = () => {
     
     return (
         <form onSubmit={handleSubmit}>
-            <h1>Login</h1>
+            <h1>Child Login</h1>
             <input
                 name="username"
                 value={username}
@@ -50,6 +51,7 @@ const Login = () => {
                 required
             />
             <button type="submit">Login</button>
+            {error && <div>Error! {error.message}</div>}
         </form>
     )
 }

@@ -17,6 +17,7 @@ export const QUERY_CHILD = gql`
   query child($_id: ID, $username: String) {
     child(_id: $_id, username: $username) {
       _id
+      username
       chores {
         _id
         name

@@ -1,4 +1,4 @@
-import {useParams} from 'react-router-dom';
+import {useParams, Link} from 'react-router-dom';
 import {useQuery, useMutation} from '@apollo/client';
 import {QUERY_CHILD} from '../utils/queries';
 import {UPDATE_CHORE, DELETE_CHORE} from '../utils/mutations';
@@ -29,6 +29,7 @@ const ParentView = () => {
         variables: {_id: childId}
     })
     const chores = childData?.child.chores || [];
+    const childName = childData?.child.username || [];
 
       const removeChore = async (_id) => {
         await deleteChore({
@@ -51,6 +52,9 @@ const ParentView = () => {
 
     return (
         <>
+        <Link to="/parent-home">Home</Link>
+        <Link to="/add-chore">Add Chore</Link>
+        <h3>{childName}'s Chores</h3>
             {chores.filter(chore => {
                 const {complete, approve, paid} = chore;
                 return (complete && approve && !paid);

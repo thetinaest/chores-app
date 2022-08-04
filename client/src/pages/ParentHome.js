@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { ADD_CHILD } from "../utils/mutations";
+import { DELETE_CHILD } from "../utils/mutations";
 import { QUERY_PARENT } from "../utils/queries";
 import Auth from "../utils/auth";
 import {useNavigate, Link} from 'react-router-dom';
@@ -11,7 +11,6 @@ import ChildCard from '../components/ChildCard';
 // add parent homescreen function
 const ParentHome = () => {
     const navigate = useNavigate();
-    const [addChild] = useMutation(ADD_CHILD);
     
     // get current user parent profile
     const profile = Auth.getProfile();
@@ -24,8 +23,6 @@ const ParentHome = () => {
 
     const children = parentData?.parent.children || [];
 
-    console.log(parentData);
-
     // check if user is logged in
     if (Auth.loggedIn() && profile.data.username) {
       
@@ -34,44 +31,20 @@ const ParentHome = () => {
       navigate('/');
     }
 
-    // useEffect( () => {
-    //   if (!loading){
-    //     // console.log(parentData);
-    //     // console.log(parentData.parent.children);
-    //     setChildren(parentData.parent.children);
-    //   }
-    // }, [loading])
-
-
-  
-
-  // if (loading) {
-  //     return <div> Loading....</div>
-  // } else {
-  //   console.log(data);
-  // }
-
-  //add handleclick for adding child(ren) 
-
-  const handleClick = async () => {
-    try {
-      await addChild({
-        variables: { id: parent._id },
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
 
   //return html
   return (
     <>
-      <div>{loading ? 'Loading' : `Rendering the children of ${profile.data.username}`}</div>
-      {children.map(child => {
-        return <ChildCard child={child} key={child._id}/>
-      })}
       <Link to='/create-child'>Create Child</Link>
+      <Link to='/add-chore'>Add Chore</Link>
+      <div>{loading ? 'Loading' : `${profile.data.username}'s Children`}</div>
+      <div className="d-flex flex-column">
+        {children.map(child => {
+          return <ChildCard child={child} key={child._id}/>
+        })}
+      </div>
+      
+      
     </>
         
   )

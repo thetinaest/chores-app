@@ -29,6 +29,12 @@ const ChildHome = () => {
         })
     }
 
+    const redoChore = async (_id) => {
+        await updateChore({
+            variables: { _id, complete: false}
+        })
+    }
+
     return (
         <>
             {chores.filter(chore => {
@@ -62,6 +68,9 @@ const ChildHome = () => {
                 return (
                     <div key={chore._id}> 
                     <ChoreCard chore={chore} />
+                    <button type="button" onClick={() => {
+                        return redoChore(chore._id);
+                    }}>Redo</button>
                     </div>
                 )
             })}
