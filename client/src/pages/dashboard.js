@@ -29,7 +29,7 @@ const Dashboard = () => {
             </Link>
 
             <Link className="link"to='/sign-up'>
-            <button className="w-100">Sign up</button>
+            <button className="w-100">Sign Up</button>
             </Link>
             </div>
         </div>
