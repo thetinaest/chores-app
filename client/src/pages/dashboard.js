@@ -21,15 +21,15 @@ const Dashboard = () => {
         <div className="container">
         <div className="btnGroup">
             <Link className="link"to='/login-parent'>
-                <button>Parent Login</button>
+                <button className="w-100">Parent Login</button>
             </Link>
 
             <Link className="link"to='/login-child'>
-            <button> Child Login</button>
+            <button className="w-100"> Child Login</button>
             </Link>
 
             <Link className="link"to='/sign-up'>
-            <button>Sign up</button>
+            <button className="w-100">Sign up</button>
             </Link>
             </div>
         </div>
