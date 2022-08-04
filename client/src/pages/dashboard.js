@@ -1,6 +1,7 @@
 import { Link, Navigate } from 'react-router-dom';
 import Auth from '../utils/auth';
-
+import Header from "../components/Header"
+import "../App.css";
 
 const Dashboard = () => {
 
@@ -17,11 +18,22 @@ const Dashboard = () => {
     }
     
     return(
-        <>
-            <Link to='/login-parent'>Parent Login</Link>
-            <Link to='/login-child'>Child Login</Link>
-            <Link to='/sign-up'>Sign Up</Link>
-        </>
+        <div className="container">
+        <Header />
+        <div className="btnGroup">
+            <Link className="link"to='/login-parent'>
+                <button>Parent Login</button>
+            </Link>
+
+            <Link className="link"to='/login-child'>
+            <button> Child Login</button>
+            </Link>
+
+            <Link className="link"to='/sign-up'>
+            <button>Sign up</button>
+            </Link>
+            </div>
+        </div>
     );
 }
 
