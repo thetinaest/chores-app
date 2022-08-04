@@ -7,6 +7,7 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import Auth from './utils/auth';
 
 // import providers for global state (if nessessary)
 
@@ -43,21 +44,22 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 function App() {
+  const [loggedIn, setLoggedIn] = useState(Auth.loggedIn());
 
   return (
     <ApolloProvider client={client}>
     <Router>     
-      <Header />
+      <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
       <Routes>
         <Route exact path="/" element={<Dashboard />} />
-        <Route exact path="/login-parent" element={<LoginParent />} />
-        <Route exact path="/login-child" element={<LoginChild />} />
+        <Route exact path="/login-parent" element={<LoginParent setLoggedIn={setLoggedIn}/>} />
+        <Route exact path="/login-child" element={<LoginChild setLoggedIn={setLoggedIn}/>} />
+        <Route exact path="/sign-up" element={<SignUp setLoggedIn={setLoggedIn}/>} />
         <Route exact path="/parent-home" element={<ParentHome />} />
         <Route exact path="/create-child" element={<CreateChild />} />
         <Route path="/add-chore" element={<AddChore />} />
         <Route exact path="/children/:childId" element={<ParentView />} />
         <Route exact path="/child-home" element={<ChildHome />} />
-        <Route exact path="/sign-up" element={<SignUp />} />
       </Routes>
             
     </Router>

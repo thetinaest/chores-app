@@ -1,16 +1,16 @@
 import {Link} from 'react-router-dom';
 import Auth from '../../utils/auth';
 
-const Header = () => {
+const Header = (props) => {
+    const {loggedIn, setLoggedIn} = props;
 
     // logout user
     const logout = e => {
         e.preventDefault();
+        setLoggedIn(false);
         Auth.logout();
     }
 
-    // check if current user is logged in
-    const loggedIn = Auth.loggedIn();
 
     return (
         <>
@@ -19,7 +19,6 @@ const Header = () => {
         {loggedIn && <Link to="/dashboard" onClick={logout}>Logout</Link>}
         </>
     )
-    
 }
 
 export default Header;
