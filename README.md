@@ -1,70 +1,77 @@
-# Getting Started with Create React App
+# Jessie's List
+Jessie’s List is an app that allows parents to teach their children the value of working hard and learning responsibility. 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Our application is a platform for parents to track chores that they assign to their children to complete. At a glance a parent will be able to see which chores still need to be completed by their child as well as add more chores to their list by using our user-focused design!
 
-## Available Scripts
+Don't worry about not being able to make it to the chore calendar to see if your child has marked off that their chore is done-- check our app from the comfort of your own device instead!
 
-In the project directory, you can run:
 
-### `npm start`
+## Table of Contents
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [User Story](#UserStory)
+- [Tutorial](#Tutorial)
+- [Built With](#BuiltWith)
+- [Author](#Author)
+- [License](#license)
+- [Aknowledgements](#aknowledgements)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## User Story
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+AS A busy parent 
 
-### `npm run build`
+I WANT to be able to manage their chore list while on the go
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+SO THAT I can teach my children responsibilities and allow them to earn an allowance
+ 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Tutorial  
+  
+  * Visit the website [here](https://nameless-inlet-86757.herokuapp.com/)  
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+![Screenshot](/assets/home.PNG)
+![Screenshot](/assets/childrenList.PNG)
+![Screenshot](/assets/choresList.PNG)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Built With
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+* [MongoDB](https://docs.mongodb.com/)
+* [Express](https://www.npmjs.com/package/express)
+* [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+* [HTML]
+* [CSS]
+* [Bootstrap]
 
-## Learn More
+## Authors
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**Kristina Brennan**
+- [Link to Portfolio Site](https://thetinaest.github.io/react-portfolio/)
+- [Link to Github](https://github.com/thetinaest)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Micah Zahn**
+- [Link to Portfolio Site](https://enigmatic-sea-15020.herokuapp.com/)
+- [Link to Github](https://github.com/Mazattack1999)
 
-### Code Splitting
+**Emily Bennett**
+- [Link to Portfolio Site](https://wiggly-worm.herokuapp.com/)
+- [Link to Github](https://github.com/bennettem)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**Alex Running** 
+- [Link to Portfolio Site](https://snowslurpie.github.io/alex-portfolio/)
+- [Link to Github](https://github.com/SnowSlurpie)
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## License
 
-### Making a Progressive Web App
+This project is licensed under the MIT License 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Acknowledgments
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* [W3 Schools](https://www.w3schools.com/)
+* [MDN Web Docs](https://developer.mozilla.org/en-US/)
+* [MongoDB Docs](https://docs.mongodb.com/)
+* [Apollo Server Documentation](https://www.apollographql.com/docs/apollo-server/)
