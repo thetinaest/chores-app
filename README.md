@@ -31,6 +31,10 @@ SO THAT I can teach my children responsibilities and allow them to earn an allow
   
   * Visit the website [here](https://nameless-inlet-86757.herokuapp.com/)  
 
+![Screenshot](/assets/home.PNG)
+![Screenshot](/assets/childrenList.PNG)
+![Screenshot](/assets/choresList.PNG)
+
   
 
 ## Built With
@@ -38,10 +42,10 @@ SO THAT I can teach my children responsibilities and allow them to earn an allow
 * [MongoDB](https://docs.mongodb.com/)
 * [Express](https://www.npmjs.com/package/express)
 * [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-* [HTML]
-* [CSS]
-* [Bootstrap]
-
+* React
+* HTML
+* CSS
+* Bootstrap
 
 ## Authors
 
