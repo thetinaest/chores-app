@@ -8,7 +8,7 @@ const ChildCard = (props) => {
 
     return (
         
-        <Link to={`/children/${_id}`}>
+        <Link to={`/children/${_id}`} className='button mb-3'>
             {username}
         </Link>
     )

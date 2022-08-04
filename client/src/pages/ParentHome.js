@@ -35,10 +35,10 @@ const ParentHome = () => {
   //return html
   return (
     <>
-      <Link to='/create-child'>Create Child</Link>
-      <Link to='/add-chore'>Add Chore</Link>
-      <div>{loading ? 'Loading' : `${profile.data.username}'s Children`}</div>
-      <div className="d-flex flex-column">
+      <Link to='/create-child' className="navElement">Create Child</Link>
+      <Link to='/add-chore' className="navElement">Add Chore</Link>
+      <h2 className="my-3">{`${profile.data.username}'s Children`}</h2>
+      <div className="d-flex flex-column btnGroup">
         {children.map(child => {
           return <ChildCard child={child} key={child._id}/>
         })}

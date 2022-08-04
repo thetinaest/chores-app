@@ -54,7 +54,7 @@ const addChore = () => {
 
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className='d-flex flex-column mt-3'onSubmit={handleSubmit}>
             <h1>Add Chore</h1>
             <input
                 name="name"
@@ -65,12 +65,13 @@ const addChore = () => {
                 required
                 
             />
-            <input
+            <textarea
                 name="description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Chore Description"
                 type="text"
+                rows='5'
                 required
             />
             <input 
@@ -88,7 +89,7 @@ const addChore = () => {
                 })}
             </datalist>
 
-            <button type="submit">Submit</button>
+            <button type="submit"  className='w-100 mt-2 rounded'>Add Chore</button>
         </form>
     )
 }

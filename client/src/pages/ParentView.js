@@ -52,78 +52,88 @@ const ParentView = () => {
 
     return (
         <>
-        <Link to="/parent-home">Home</Link>
-        <Link to="/add-chore">Add Chore</Link>
-        <h3>{childName}'s Chores</h3>
+        <Link to="/parent-home" className="navElement">Home</Link>
+        <Link to="/add-chore" className="navElement">Add Chore</Link>
+        <h2 className='my-3'>{childName}'s Chores</h2>
+        <div className='choresList d-flex flex-column align-items-center'>
             {chores.filter(chore => {
-                const {complete, approve, paid} = chore;
-                return (complete && approve && !paid);
-            }).length > 0 &&
-            <h3>Awaiting Payment</h3>
-            }
-            {chores.filter(chore => {
-                const {complete, approve, paid} = chore;
-                return (complete && approve && !paid);
-            })
-            .map(chore => {
-                return (
-                    <div key={chore._id}> 
-                    <ChoreCard chore={chore} />
-                    <button type="button" onClick={() => {
-                        return removeChore(chore._id);
-                    }}>Mark as Paid</button>
-                    <button type="button" onClick={() => {
-                        return removeChore(chore._id);
-                    }}>Remove Chore</button>
-                    </div>
-                )
-            })}
-            
-            {chores.filter(chore => {
-                const {complete, approve, paid} = chore;
-                return (complete && !approve && !paid);
-            }).length > 0 &&
-            <h3>Awaiting Approval</h3>}
-            {chores.filter(chore => {
-                const {complete, approve, paid} = chore;
-                return (complete && !approve && !paid);
-            })
-            .map(chore => {
-                return (
-                    <div key={chore._id}> 
-                    <ChoreCard chore={chore} />
-                    <button type="button" onClick={() => {
-                        return approveChore(chore._id);
-                    }}>Approve Chore</button>
-                    <button type="button" onClick={() => {
-                        return reassignChore(chore._id);
-                    }}>Reassign Chore</button>
-                    <button type="button" onClick={() => {
-                        return removeChore(chore._id);
-                    }}>Remove Chore</button>
-                    </div>
-                )
-            })}
+                    const {complete, approve, paid} = chore;
+                    return (complete && approve && !paid);
+                }).length > 0 &&
+                <h3>Awaiting Payment</h3>
+                }
+                {chores.filter(chore => {
+                    const {complete, approve, paid} = chore;
+                    return (complete && approve && !paid);
+                })
+                .map(chore => {
+                    return (
+                        <div className='choreCard' key={chore._id}> 
+                        <ChoreCard chore={chore} />
+                        <div className='btnGroup'>
+                            <button type="button" onClick={() => {
+                                return removeChore(chore._id);
+                            }}>Mark as Paid</button>
+                            <button type="button" onClick={() => {
+                                return removeChore(chore._id);
+                            }}>Remove Chore</button>
+                        </div>
 
-            {chores.filter(chore => {
-                const {complete, approve, paid} = chore;
-                return (!complete && !approve && !paid);
-            }).length > 0 &&
-            <h3>Chores to Complete</h3>}
-            {chores.filter(chore => {
-                const {complete, approve, paid} = chore;
-                return (!complete && !approve && !paid);
-            })
-            .map(chore => {
-                return (
-                    <div key={chore._id}> 
-                    <ChoreCard chore={chore} />
-                    <button type="button" onClick={() => {
-                        return removeChore(chore._id);
-                    }}>Remove Chore</button>
-                    </div>
-                )
-            })}
+                        </div>
+                    )
+                })}
+                
+                {chores.filter(chore => {
+                    const {complete, approve, paid} = chore;
+                    return (complete && !approve && !paid);
+                }).length > 0 &&
+                <h3>Awaiting Approval</h3>}
+                {chores.filter(chore => {
+                    const {complete, approve, paid} = chore;
+                    return (complete && !approve && !paid);
+                })
+                .map(chore => {
+                    return (
+                        <div className='choreCard' key={chore._id}> 
+                        <ChoreCard chore={chore} />
+                        <div className='btnGroup'>
+                            <button type="button" onClick={() => {
+                                return approveChore(chore._id);
+                            }}>Approve Chore</button>
+                            <button type="button" onClick={() => {
+                                return reassignChore(chore._id);
+                            }}>Reassign Chore</button>
+                            <button type="button" onClick={() => {
+                                return removeChore(chore._id);
+                            }}>Remove Chore</button>
+                        </div>
+                        </div>
+                    )
+                })}
+
+                {chores.filter(chore => {
+                    const {complete, approve, paid} = chore;
+                    return (!complete && !approve && !paid);
+                }).length > 0 &&
+                <h3>Chores to Complete</h3>}
+                {chores.filter(chore => {
+                    const {complete, approve, paid} = chore;
+                    return (!complete && !approve && !paid);
+                })
+                .map(chore => {
+                    return (
+                        <div className='choreCard' key={chore._id}> 
+                        <ChoreCard chore={chore} />
+                        <div className='btnGroup'>
+                            <button type="button" onClick={() => {
+                                return removeChore(chore._id);
+                            }}>Remove Chore</button>
+                        </div>
+                        </div>
+                    )
+                })}
+        </div>
+
         </>
     )
 

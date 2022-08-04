@@ -16,7 +16,7 @@ const Header = (props) => {
         <>
             <h1 className="appName">Jessie's List</h1>
 
-            {loggedIn && <Link to="/dashboard" onClick={logout}>Logout</Link>}
+            {loggedIn && <Link className='navElement' to="/dashboard" onClick={logout}>Logout</Link>}
         </>
     )
 }
