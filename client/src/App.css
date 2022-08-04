@@ -17,7 +17,7 @@ body{
 }
 
 .navElement {
-  margin: 10px;
+  margin: 10px 5px;
   text-decoration: none;
   background-color: var(--color1);
   color: white;
