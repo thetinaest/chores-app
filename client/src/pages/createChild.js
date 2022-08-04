@@ -15,7 +15,12 @@ const createChild = () => {
     const profile = Auth.getProfile();
 
     // query user data from parent collection
-    const [createChild, loading, error ] = useMutation(ADD_CHILD)
+    const [createChild, loading, error ] = useMutation(ADD_CHILD, {
+        refetchQueries: [
+            {query: QUERY_PARENT}, // DocumentNode object parsed with gql
+            'parent' // Query name
+        ],
+    })
     
     const handleSubmit = async e => {
         e.preventDefault()
@@ -27,10 +32,7 @@ const createChild = () => {
                     password,
                     parentId: profile.data._id
                 },
-                refetchQueries: [
-                    {query: QUERY_PARENT}, // DocumentNode object parsed with gql
-                    'parent' // Query name
-                ],
+                
             })
             navigate('/parent-home');
         } catch (err) {
