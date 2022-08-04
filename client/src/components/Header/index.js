@@ -14,9 +14,9 @@ const Header = (props) => {
 
     return (
         <>
-        <h1 className="appName">Jessie's List</h1>
+            <h1 className="appName">Jessie's List</h1>
 
-        {loggedIn && <Link to="/dashboard" onClick={logout}>Logout</Link>}
+            {loggedIn && <Link to="/dashboard" onClick={logout}>Logout</Link>}
         </>
     )
 }

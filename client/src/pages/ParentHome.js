@@ -43,8 +43,6 @@ const ParentHome = () => {
           return <ChildCard child={child} key={child._id}/>
         })}
       </div>
-      
-      
     </>
         
   )
