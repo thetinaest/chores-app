@@ -31,9 +31,9 @@ SO THAT I can teach my children responsibilities and allow them to earn an allow
   
   * Visit the website [here](https://nameless-inlet-86757.herokuapp.com/)  
 
-![Screenshot](/assets/home.PNG)
-![Screenshot](/assets/childrenList.PNG)
-![Screenshot](/assets/choresList.PNG)
+![Website Screenshot](/assets/home.png)
+![Website Screenshot](/assets/childrenList.png)
+![Website Screenshot](/assets/choresList.png)
 
   
 
