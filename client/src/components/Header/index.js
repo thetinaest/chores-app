@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom';
 import Auth from '../../utils/auth';
+import './style.css';
 
 const Header = (props) => {
     const {loggedIn, setLoggedIn} = props;
@@ -13,11 +14,11 @@ const Header = (props) => {
 
 
     return (
-        <>
+        <div>
             <h1 className="appName">Jessie's List</h1>
 
-            {loggedIn && <Link className='navElement' to="/dashboard" onClick={logout}>Logout</Link>}
-        </>
+            {loggedIn && <Link className='logout-btn' to="/dashboard" onClick={logout}>Logout</Link>}
+        </div>
     )
 }
 

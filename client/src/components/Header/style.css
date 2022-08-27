@@ -1,0 +1,25 @@
+.appName {
+    position: relative;
+    font-size: 76px;
+    color: var(--color1);  
+}
+
+.logout-btn {
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    margin: 10px 5px;
+    text-decoration: none;
+    background-color: var(--color1);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+/* media queries */
+@media screen and (max-width: 500px) {
+    .appName {
+        font-size: 45px;
+    }
+  }

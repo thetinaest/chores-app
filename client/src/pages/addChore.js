@@ -26,7 +26,6 @@ const addChore = () => {
     const handleSubmit = async e => {
         e.preventDefault()
 
-        
         const childId = children.filter(fchild => fchild.username === child)[0]._id
 
         try {
@@ -46,12 +45,6 @@ const addChore = () => {
             console.log(err);
         }
     }
-
-
-    // if (loading) return 'Loading...'
-
-    // if (error) return `Error! ${error.message}`
-
 
     return (
         <form className='d-flex flex-column mt-3'onSubmit={handleSubmit}>

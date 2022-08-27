@@ -26,6 +26,11 @@ body{
   font-size: 20px;
 }
 
+.navElement:hover {
+  color: white;
+  background-color: black;
+}
+
 form input {
   border-radius: 5px;
   border: 2px solid var(--color1);
@@ -36,11 +41,6 @@ form input {
 form textarea {
   border-radius: 5px;
   border: 2px solid var(--color1);
-}
-
-.appName{
-  font-size: 76px;
-  color: var(--color1);
 }
 
 .btnGroup button, form button, .btnGroup .button {
