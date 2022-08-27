@@ -40,7 +40,7 @@ const ChildCard = (props) => {
     } else {
         return (
             <button 
-                className='remove-child-btn bg-danger w-100 mb-3'
+                className='remove-child-btn b-danger w-100 mb-3'
                 onClick={handleClick}
             >Delete {username}</button>
         )
