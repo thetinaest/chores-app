@@ -59,11 +59,10 @@ const resolvers = {
 			
 			//sign token
 			const token = signToken({
-				username: parental.username,
-				email: parental.email,
-				_id: parental._id,
+				...parental._doc,
 				userType: 'parent'
 			})
+
 			//return auth type
 			return {
 				token,
@@ -72,10 +71,9 @@ const resolvers = {
 		},
 		addParent: async (parent, args, context, info) => {
 			const newParent = await Parent.create(args)
+
 			const token = signToken({
-				username: newParent.username,
-				email: newParent.email,
-				_id: newParent._id,
+				...newParent._doc,
 				userType: 'parent'
 			})
 			return {
@@ -97,10 +95,8 @@ const resolvers = {
 				throw new AuthenticationError('Invalid Password!!')
 			}
 
-			//sign token
 			const token = signToken({
-				username: child.username,
-				_id: child._id,
+				...child._doc,
 				userType: 'child'
 			})
 			//return auth type
@@ -115,9 +111,7 @@ const resolvers = {
 			 await Parent.findByIdAndUpdate({_id: args.parentId}, {$push: {children: newChild._id}}, {new: true})
 
 			const token = signToken({
-				username: newChild.username,
-				email: newChild.email,
-				_id: newChild._id,
+				...newChild._doc,
 				userType: 'child'
 			})
 			return {

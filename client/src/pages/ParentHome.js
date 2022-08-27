@@ -14,7 +14,6 @@ const ParentHome = () => {
     
     // get current user parent profile
     const profile = Auth.getProfile();
-    // console.log(profile.data._id);
 
     // query user data from parent collection
     const { loading, error, data: parentData } = useQuery(QUERY_PARENT, {
@@ -25,7 +24,7 @@ const ParentHome = () => {
 
     // check if user is logged in
     if (Auth.loggedIn() && profile.data.username) {
-      
+
     } else {
       // navigate to dashboard if not logged in
       navigate('/');
