@@ -4,9 +4,11 @@ export const QUERY_PARENT = gql`
 query parent($_id: ID, $username: String) {
   parent(_id: $_id, username: $username) {
     username
+    displayName
     children {
       _id,
       username
+      displayName
     }
   }
 }
@@ -18,6 +20,7 @@ export const QUERY_CHILD = gql`
     child(_id: $_id, username: $username) {
       _id
       username
+      displayName
       chores {
         _id
         name
@@ -25,6 +28,7 @@ export const QUERY_CHILD = gql`
         paid
         complete
         description
+        createdAt
       }
     }
   }

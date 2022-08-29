@@ -6,10 +6,10 @@ import './style.css';
 
 
 const ChildCard = (props) => {
-    const [removeChild] = useMutation(DELETE_CHILD)
+    const [removeChild] = useMutation(DELETE_CHILD);
 
     // get username and chores of child from props
-    const {username, _id} = props.child
+    const {username, _id, displayName} = props.child
     // removing child status
     const {removingChild} = props;
 
@@ -34,7 +34,7 @@ const ChildCard = (props) => {
     if (!removingChild) {
         return (
             <Link to={`/children/${_id}`} className='button mb-3'>
-                {username}
+                {displayName || username}
             </Link>
         )
     } else {
@@ -42,7 +42,7 @@ const ChildCard = (props) => {
             <button 
                 className='remove-child-btn bg-danger w-100 mb-3'
                 onClick={handleClick}
-            >Delete {username}</button>
+            >Delete {displayName || username}</button>
         )
     }
 

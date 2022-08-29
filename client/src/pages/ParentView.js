@@ -28,8 +28,9 @@ const ParentView = () => {
     const {loading, error, data: childData} = useQuery(QUERY_CHILD, {
         variables: {_id: childId}
     })
+
     const chores = childData?.child.chores || [];
-    const childName = childData?.child.username || [];
+    const childName = childData?.child.displayName || childData?.child.username || [];
 
       const removeChore = async (_id) => {
         await deleteChore({

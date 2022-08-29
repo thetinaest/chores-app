@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import {ADD_CHILD} from '../utils/mutations';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
 import Auth from '../utils/auth';
 import {QUERY_PARENT} from '../utils/queries';
 
@@ -45,7 +45,10 @@ const createChild = () => {
 
     // login form set to require username and password
     return (
-        <form className='d-flex flex-column mt-3' onSubmit={handleSubmit}>
+        <>
+            <Link to='/add-chore' className="navElement">Add Chore</Link>
+            <Link to="/parent-home" className="navElement">Home</Link>
+            <form className='d-flex flex-column mt-3' onSubmit={handleSubmit}>
             <h1>Create Child</h1>
             <input
                 name="displayName"
@@ -75,6 +78,8 @@ const createChild = () => {
             />
             <button type="submit" className='w-100 mt-2 rounded'>Create Child</button>
         </form>
+        </>
+        
     )
 }
 

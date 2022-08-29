@@ -40,7 +40,7 @@ const ParentHome = () => {
       <Link to='/add-chore' className="navElement">Add Chore</Link>
       <button onClick= {() => setRemovingChild(!removingChild)}className="navElement border-0 p-2">{!removingChild ? 'Remove Child' : 'Finish'}</button>
 
-      <h2 className="my-3">{`${profile.data.username}'s Children`}</h2>
+      <h2 className="my-3">{`${profile.data.displayName || profile.data.username}'s Children`}</h2>
       <div className="d-flex flex-column btnGroup">
         {children.map(child => {
           return <ChildCard child={child} key={child._id} removingChild={removingChild}/>

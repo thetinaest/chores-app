@@ -3,7 +3,7 @@ import { useMutation, useQuery } from '@apollo/client'
 import {ADD_CHORE} from '../utils/mutations';
 import {QUERY_PARENT, QUERY_CHILD} from '../utils/queries';
 import Auth from '../utils/auth';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
 
 const addChore = () => {
     const navigate = useNavigate();
@@ -47,7 +47,10 @@ const addChore = () => {
     }
 
     return (
-        <form className='d-flex flex-column mt-3'onSubmit={handleSubmit}>
+        <>
+            <Link to='/create-child' className="navElement">Create Child</Link>
+            <Link to="/parent-home" className="navElement">Home</Link>
+            <form className='d-flex flex-column mt-3'onSubmit={handleSubmit}>
             <h1>Add Chore</h1>
             <input
                 name="name"
@@ -78,12 +81,14 @@ const addChore = () => {
             />
             <datalist id="childList">
                 {children.map(child => {
-                    return <option value={child.username} key={child._id}/>
+                    return <option value={child.displayName || child.username} key={child._id}/>
                 })}
             </datalist>
 
             <button type="submit"  className='w-100 mt-2 rounded'>Add Chore</button>
         </form>
+        </>
+        
     )
 }
 
