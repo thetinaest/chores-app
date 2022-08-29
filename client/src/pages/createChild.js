@@ -27,7 +27,6 @@ const createChild = () => {
         e.preventDefault()
         
         try {
-            console.log(displayName, username, password);
             const {data} = await createChild({
                 variables: {
                     username,
