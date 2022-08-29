@@ -7,6 +7,7 @@ const parentSchema = new Schema(
     username: {
         type: String,
         required: 'You need a username!',
+        unique: true,
         minlength: 1,
         maxlength: 20
     },
@@ -22,6 +23,11 @@ const parentSchema = new Schema(
         type: String,
         required: true,
         minlength: 5
+    },
+    displayName: {
+        type: String,
+        required: 'Must have a name!',
+        minLength: 1
     },
     children: [
         {

@@ -21,8 +21,8 @@ module.exports = {
     }
     return req
   },
-  signToken: function({ _id, email, username, userType }) {
-    const payload = { _id, email, username, userType }
+  signToken: function({ _id, email, username, displayName, userType }) {
+    const payload = { _id, email, username, displayName, userType }
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration })
   },
   checkAuth: function(context) {
