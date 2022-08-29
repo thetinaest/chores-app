@@ -37,7 +37,7 @@ const ChildHome = () => {
 
     return (
         <>
-        <h2 className='my-3'>{profile.data.username}'s Chores</h2>
+        <h2 className='my-3'>{profile.data.displayName || profile.data.username}'s Chores</h2>
         <div className='choresList d-flex flex-column align-items-center'>
         {chores.filter(chore => {
                 const {complete, approve, paid} = chore;

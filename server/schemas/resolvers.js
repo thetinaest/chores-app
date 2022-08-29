@@ -134,7 +134,6 @@ const resolvers = {
 		},
 		addChore: async (parent, args, context, info) => {
 			const newChore = await Chore.create(args)
-			console.log(newChore);
 
 			await Child.findByIdAndUpdate({_id: args.childId}, {$push: {chores: newChore._id}}, {new: true})
 

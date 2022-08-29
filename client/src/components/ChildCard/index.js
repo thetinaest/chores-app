@@ -2,7 +2,6 @@ import {Link} from 'react-router-dom';
 import {useMutation} from '@apollo/client'
 import { DELETE_CHILD } from "../../utils/mutations";
 import {QUERY_PARENT} from '../../utils/queries';
-import './style.css';
 
 
 const ChildCard = (props) => {

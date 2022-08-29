@@ -10,7 +10,7 @@ const addChore = () => {
     const [addChore] = useMutation(ADD_CHORE)
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
-    const [child, setChild] = useState('');
+    const [childId, setChildId] = useState('');
 
     // get current user parent profile
     const profile = Auth.getProfile();
@@ -26,9 +26,12 @@ const addChore = () => {
     const handleSubmit = async e => {
         e.preventDefault()
 
-        const childId = children.filter(fchild => fchild.username === child)[0]._id
-
         try {
+
+            if (!childId) {
+                throw 'Please select a child';
+            }
+
             const {data} = await addChore({
                 variables: {
                     name, 
@@ -40,7 +43,8 @@ const addChore = () => {
                     'child' // Query name
                 ],
             })
-            navigate(`/children/${childId}`)
+            window.location.assign(`/children/${childId}`)
+            // navigate(`/children/${childId}`)
         } catch (err) {
             console.log(err);
         }
@@ -70,20 +74,19 @@ const addChore = () => {
                 rows='5'
                 required
             />
-            <input 
-                type="text" 
-                list="childList" 
-                placeholder="Child"
-                value={child}
-                onChange={(e) => {
-                    setChild(e.target.value);
-                }}
-            />
-            <datalist id="childList">
+            <select 
+            name="child-list" 
+            id="child-list"
+            className="mt-1"
+            required
+            onChange={(e) => {
+                setChildId(e.target.value);
+            }}>
+                <option>Select a child...</option>
                 {children.map(child => {
-                    return <option value={child.displayName || child.username} key={child._id}/>
+                    return <option value={child._id} key={child._id}>{child.displayName || child.username}</option>
                 })}
-            </datalist>
+            </select>
 
             <button type="submit"  className='w-100 mt-2 rounded'>Add Chore</button>
         </form>

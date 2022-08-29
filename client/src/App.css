@@ -43,6 +43,12 @@ form textarea {
   border: 2px solid var(--color1);
 }
 
+form select {
+  border-radius: 5px;
+  border: 2px solid var(--color1);
+  height: 40px;
+}
+
 .btnGroup button, form button, .btnGroup .button {
   color: white;
   margin-bottom: 50px;
@@ -68,6 +74,7 @@ form textarea {
 }
 
 .choreCard {
+  position: relative;
   border: 2px solid var(--color1);
   border-radius: 5px;
   width: 80%;
