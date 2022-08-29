@@ -106,6 +106,7 @@ const resolvers = {
 			}
 		},
 		addChild: async (parent, args, context, info) => {
+			console.log(args);
 			const newChild = await Child.create(args)
 
 			 await Parent.findByIdAndUpdate({_id: args.parentId}, {$push: {children: newChild._id}}, {new: true})

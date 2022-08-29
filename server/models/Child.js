@@ -18,7 +18,8 @@ const childSchema = new Schema(
     displayName: {
       type: String,
       required: 'Must have a name!',
-      minlength: 1
+      minlength: 1,
+      maxlength: 20
     },
     chores: [ 
       {

@@ -13,14 +13,14 @@ mutation loginParent($username: String!, $password: String!) {
 `;
 
 export const ADD_PARENT = gql`
-mutation addParent($username: String!, $email: String!, $password: String!) {
-    addParent(username: $username, email: $email, password: $password) {
-        token
-        parent {
-            _id
-            username
-        }
+mutation AddParent($username: String!, $email: String!, $password: String!, $displayName: String!) {
+  addParent(username: $username, email: $email, password: $password, displayName: $displayName) {
+    token
+    parent {
+      _id
+      username
     }
+  }
 }
 `;
 
@@ -37,8 +37,8 @@ mutation LoginChild($username: String!, $password: String!) {
 `;
 
 export const ADD_CHILD = gql`
-mutation addChild($username: String!, $password: String!, $parentId: ID!) {
-  addChild(username: $username, password: $password, parentId: $parentId) {
+mutation AddChild($parentId: ID!, $username: String!, $password: String!, $displayName: String!) {
+  addChild(parentId: $parentId, username: $username, password: $password, displayName: $displayName) {
     token
     child {
       _id
@@ -48,28 +48,30 @@ mutation addChild($username: String!, $password: String!, $parentId: ID!) {
 `;
 
 export const UPDATE_PARENT = gql`
-mutation updateParent($_id: ID, $email: String, $password: String, $username: String, $children: [ID]) {
-    updateParent(_id: $_id, email: $email, password: $password, username: $username, children: $children) {
-      _id,
-      username,
-      email,
-      password,
-      children {
-        _id
-      }
+mutation UpdateParent($id: ID, $email: String, $password: String, $username: String, $displayName: String, $children: [ID]) {
+  updateParent(_id: $id, email: $email, password: $password, username: $username, displayName: $displayName, children: $children) {
+    _id
+    username
+    email
+    password
+    displayName
+    children {
+      _id
     }
   }
+}
 `;
 
 export const UPDATE_CHILD = gql`
-mutation updateChild($_id: ID, $password: String, $username: String) {
-    updateChild(_id: $_id, password: $password, username: $username) {
-      _id,
-      username,
-      password
-    }
+mutation UpdateChild($id: ID, $password: String, $username: String, $displayName: String) {
+  updateChild(_id: $id, password: $password, username: $username, displayName: $displayName) {
+    _id
+    username
+    password
+    displayName
   }
-  `;
+}
+`;
 
   export const DELETE_PARENT = gql`
   mutation deleteParent($_id: ID) {

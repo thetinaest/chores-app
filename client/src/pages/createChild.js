@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useMutation, useQuery, gql } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import {ADD_CHILD} from '../utils/mutations';
 import {useNavigate} from 'react-router-dom';
 import Auth from '../utils/auth';
@@ -8,6 +8,7 @@ import {QUERY_PARENT} from '../utils/queries';
 
 const createChild = () => {
     const navigate = useNavigate();
+    const [displayName, setDisplayName] = useState('')
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
@@ -26,15 +27,15 @@ const createChild = () => {
         e.preventDefault()
         
         try {
+            console.log(displayName, username, password);
             const {data} = await createChild({
                 variables: {
                     username,
                     password,
+                    displayName: displayName,
                     parentId: profile.data._id
-                },
-                
+                }
             })
-            // navigate('/parent-home');
             window.location.assign('/parent-home') 
         } catch (err) {
             console.log(err);
@@ -42,15 +43,19 @@ const createChild = () => {
     }
 
 
-    // if (loading) return 'Loading...'
-
-    // if (error) return `Error! ${error.message}`
-
-
     // login form set to require username and password
     return (
         <form className='d-flex flex-column mt-3' onSubmit={handleSubmit}>
             <h1>Create Child</h1>
+            <input
+                name="displayName"
+                value={displayName}
+                onChange={(e) => setDisplayName(e.target.value)}
+                placeholder="Name"
+                type="text"
+                required
+                
+            />
             <input
                 name="username"
                 value={username}
