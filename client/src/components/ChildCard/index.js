@@ -2,6 +2,7 @@ import {Link} from 'react-router-dom';
 import {useMutation} from '@apollo/client'
 import { DELETE_CHILD } from "../../utils/mutations";
 import {QUERY_PARENT} from '../../utils/queries';
+import {idbPromise} from '../../utils/helpers';
 
 
 const ChildCard = (props) => {
@@ -22,8 +23,10 @@ const ChildCard = (props) => {
                 refetchQueries: [
                     {query: QUERY_PARENT}, // DocumentNode object parsed with gql
                     'parent' // Query name
-                ],
+                ]
             })
+            console.log(data.deleteChild._id);
+            idbPromise('children', 'delete', {_id: data.deleteChild._id})
             
         } catch (err) {
             console.log(err);

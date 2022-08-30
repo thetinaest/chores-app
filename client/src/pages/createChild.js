@@ -4,6 +4,7 @@ import {ADD_CHILD} from '../utils/mutations';
 import {useNavigate, Link} from 'react-router-dom';
 import Auth from '../utils/auth';
 import {QUERY_PARENT} from '../utils/queries';
+import {idbPromise} from '../utils/helpers';
 
 
 const createChild = () => {
@@ -31,10 +32,16 @@ const createChild = () => {
                 variables: {
                     username,
                     password,
-                    displayName: displayName,
+                    displayName,
                     parentId: profile.data._id
                 }
             })
+            // store child data in indexedDB
+            idbPromise('children', 'put', {
+                username, 
+                displayName, 
+                _id: data.addChild.child._id
+            });
             window.location.assign('/parent-home') 
         } catch (err) {
             console.log(err);
