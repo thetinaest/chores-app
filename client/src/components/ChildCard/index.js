@@ -3,10 +3,13 @@ import {useMutation} from '@apollo/client'
 import { DELETE_CHILD } from "../../utils/mutations";
 import {QUERY_PARENT} from '../../utils/queries';
 import {idbPromise} from '../../utils/helpers';
+import {useAppContext} from '../../utils/GlobalState';
+import {REMOVE_CHILD} from '../../utils/actions';
 
 
 const ChildCard = (props) => {
-    const [removeChild] = useMutation(DELETE_CHILD);
+    const [deleteChild] = useMutation(DELETE_CHILD);
+    const [state, dispatch] = useAppContext();
 
     // get username and chores of child from props
     const {username, _id, displayName} = props.child
@@ -15,17 +18,24 @@ const ChildCard = (props) => {
 
     const handleClick = async (e) => {
 
+        // remove child from global state
+        dispatch({
+            type: REMOVE_CHILD,
+            _id
+        })
+
         try {
-            const {data} = await removeChild({
+            const {data} = await deleteChild({
                 variables: {
                     _id
                 },
-                refetchQueries: [
-                    {query: QUERY_PARENT}, // DocumentNode object parsed with gql
-                    'parent' // Query name
-                ]
+                // refetchQueries: [
+                //     {query: QUERY_PARENT}, // DocumentNode object parsed with gql
+                //     'parent' // Query name
+                // ]
             })
             // Remove child from indexedDB
+            console.log(data);
             idbPromise('children', 'delete', {_id: data.deleteChild._id})
             
         } catch (err) {

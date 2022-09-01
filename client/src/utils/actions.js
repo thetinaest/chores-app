@@ -1,4 +1,4 @@
 export const UPDATE_CHILDREN = "UPDATE_CHILDREN";
+export const REMOVE_CHILD = "DELETE_CHILD";
 export const UPDATE_CHORE = "UPDATE_CHORE";
-export const DELETE_CHILD = "DELETE_CHILD";
 export const DELETE_CHORE = "DELETE_CHORE";
