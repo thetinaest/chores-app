@@ -42,6 +42,8 @@ mutation AddChild($parentId: ID!, $username: String!, $password: String!, $displ
     token
     child {
       _id
+      displayName
+      username
     }
   }
 }

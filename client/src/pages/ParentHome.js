@@ -32,19 +32,19 @@ const ParentHome = () => {
       variables: { _id: profile.data._id },
     });
 
-    const data = parentData?.parent.children || [];
+    const childrenData = parentData?.parent.children || [];
 
     useEffect(() => {
       // if children in query
-      if (data) {
+      if (childrenData) {
         // update global state to contain children in query
         dispatch({
           type: UPDATE_CHILDREN,
-          children: data
+          children: childrenData
         })
 
         // add all children to indexedDB
-        data.forEach(child => {
+        childrenData.forEach(child => {
           idbPromise('children', 'put', child);
         })
       } else if (!loading) {
@@ -56,7 +56,7 @@ const ParentHome = () => {
           })
         })
       }
-    }, [data, loading, dispatch])
+    }, [loading])
 
 
 

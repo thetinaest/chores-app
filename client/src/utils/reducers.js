@@ -8,7 +8,6 @@ import {
 import { useReducer } from "react";
 
 export const reducer = (state, action) => {
-    console.log(action);
     switch (action.type) {
         // if action type value is the value of `UPDATE_CHILDREN`, return a new state object with an updated products array
         case UPDATE_CHILDREN:

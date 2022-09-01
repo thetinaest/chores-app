@@ -5,10 +5,13 @@ import {useNavigate, Link} from 'react-router-dom';
 import Auth from '../utils/auth';
 import {QUERY_PARENT} from '../utils/queries';
 import {idbPromise} from '../utils/helpers';
+import {useAppContext} from '../utils/GlobalState';
+import {UPDATE_CHILDREN} from '../utils/actions';
 
 
 const createChild = () => {
     const navigate = useNavigate();
+    const [state, dispatch] = useAppContext();
     const [displayName, setDisplayName] = useState('')
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -18,10 +21,10 @@ const createChild = () => {
 
     // query user data from parent collection
     const [createChild, loading, error ] = useMutation(ADD_CHILD, {
-        refetchQueries: [
-            {query: QUERY_PARENT}, // DocumentNode object parsed with gql
-            'parent' // Query name
-        ],
+        // refetchQueries: [
+        //     {query: QUERY_PARENT}, // DocumentNode object parsed with gql
+        //     'parent' // Query name
+        // ],
     })
     
     const handleSubmit = async e => {
@@ -36,13 +39,18 @@ const createChild = () => {
                     parentId: profile.data._id
                 }
             })
+            
+            if (!data) {
+                throw 'Invalid entry'
+            }
+            dispatch({
+                type: UPDATE_CHILDREN,
+                children: [...state.children, data.addChild.child]
+            })
             // store child data in indexedDB
-            idbPromise('children', 'put', {
-                username, 
-                displayName, 
-                _id: data.addChild.child._id
-            });
-            window.location.assign('/parent-home') 
+            idbPromise('children', 'put', {...data.addChild.child});
+            // navigate('/parent-home');
+            window.location.assign('/parent-home');
         } catch (err) {
             console.log(err);
         }
