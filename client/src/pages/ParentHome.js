@@ -6,31 +6,59 @@ import {useNavigate, Link} from 'react-router-dom';
 
 
 import ChildCard from '../components/ChildCard';
+import { UPDATE_CHILDREN } from "../utils/actions";
+import { idbPromise } from "../utils/helpers";
+import {useAppContext} from '../utils/GlobalState';
 
 // add parent homescreen function
 const ParentHome = () => {
     const navigate = useNavigate();
-    
-
+    const [state, dispatch] = useAppContext();
     const [removingChild, setRemovingChild] = useState(false);
     
     // get current user parent profile
     const profile = Auth.getProfile();
+
+        // check if user is logged in
+        if (Auth.loggedIn() && profile.data.username) {
+
+        } else {
+          // navigate to dashboard if not logged in
+          navigate('/');
+        }
 
     // query user data from parent collection
     const { loading, error, data: parentData } = useQuery(QUERY_PARENT, {
       variables: { _id: profile.data._id },
     });
 
-    const children = parentData?.parent.children || [];
+    const data = parentData?.parent.children || [];
 
-    // check if user is logged in
-    if (Auth.loggedIn() && profile.data.username) {
+    useEffect(() => {
+      // if children in query
+      if (data) {
+        // update global state to contain children in query
+        dispatch({
+          type: UPDATE_CHILDREN,
+          children: data
+        })
 
-    } else {
-      // navigate to dashboard if not logged in
-      navigate('/');
-    }
+        // add all children to indexedDB
+        data.forEach(child => {
+          idbPromise('children', 'put', child);
+        })
+      } else if (!loading) {
+        idbPromise('children', 'get').then(children => {
+          // use retrieved data to set global state for offline browsing
+          dispatch({
+            type: UPDATE_CHILDREN,
+            children: children
+          })
+        })
+      }
+    }, [data, loading, dispatch])
+
+
 
 
   //return html
@@ -42,7 +70,7 @@ const ParentHome = () => {
 
       <h2 className="my-3">{`${profile.data.displayName || profile.data.username}'s Children`}</h2>
       <div className="d-flex flex-column btnGroup">
-        {children.map(child => {
+        {state.children.map(child => {
           return <ChildCard child={child} key={child._id} removingChild={removingChild}/>
         })}
       </div>

@@ -25,7 +25,7 @@ const ChildCard = (props) => {
                     'parent' // Query name
                 ]
             })
-            console.log(data.deleteChild._id);
+            // Remove child from indexedDB
             idbPromise('children', 'delete', {_id: data.deleteChild._id})
             
         } catch (err) {
