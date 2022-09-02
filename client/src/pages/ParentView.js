@@ -1,14 +1,18 @@
+import {useEffect} from 'react';
 import {useParams, Link} from 'react-router-dom';
 import {useQuery, useMutation} from '@apollo/client';
 import {QUERY_CHILD} from '../utils/queries';
 import {UPDATE_CHORE, DELETE_CHORE} from '../utils/mutations';
-import Auth from '../utils/auth';
+import {useAppContext} from '../utils/GlobalState';
+import {SET_CURRENT_CHILD, UPDATE_CHORES, REMOVE_CHORE} from '../utils/actions';
+import {idbPromise} from '../utils/helpers'
 
 import ChoreCard from '../components/ChoreCard';
 
 const ParentView = () => {
     // get childId from params
     const {childId} = useParams();
+    const [state, dispatch] = useAppContext();
 
     // mutations
     const [updateChore] = useMutation(UPDATE_CHORE, {
@@ -32,7 +36,39 @@ const ParentView = () => {
     const chores = childData?.child.chores || [];
     const childName = childData?.child.displayName || childData?.child.username || [];
 
+    // update state with current child and chores
+    useEffect(() => {
+        // if childName in query
+        if (childName) {
+          // update global state to contain children in query
+          dispatch({
+            type: SET_CURRENT_CHILD,
+            currentChild: childName
+          })
+  
+        }
+
+        // if chores in query
+        if (chores) {
+            dispatch({
+                type: UPDATE_CHORES,
+                chores
+            })
+
+            // add all chores to indexedDB
+            chores.forEach(chore => {
+                idbPromise('chores', 'put', chore);
+            })
+        }
+      }, [loading])
+
+
       const removeChore = async (_id) => {
+        dispatch({
+            type: REMOVE_CHORE,
+            _id
+        })
+
         await deleteChore({
             variables: {_id}
         })
@@ -57,13 +93,13 @@ const ParentView = () => {
         <Link to="/add-chore" className="navElement">Add Chore</Link>
         <h2 className='my-3'>{childName}'s Chores</h2>
         <div className='choresList d-flex flex-column align-items-center'>
-            {chores.filter(chore => {
+            {state.chores.filter(chore => {
                     const {complete, approve, paid} = chore;
                     return (complete && approve && !paid);
                 }).length > 0 &&
                 <h3>Awaiting Payment</h3>
                 }
-                {chores.filter(chore => {
+                {state.chores.filter(chore => {
                     const {complete, approve, paid} = chore;
                     return (complete && approve && !paid);
                 })
@@ -84,12 +120,12 @@ const ParentView = () => {
                     )
                 })}
                 
-                {chores.filter(chore => {
+                {state.chores.filter(chore => {
                     const {complete, approve, paid} = chore;
                     return (complete && !approve && !paid);
                 }).length > 0 &&
                 <h3>Awaiting Approval</h3>}
-                {chores.filter(chore => {
+                {state.chores.filter(chore => {
                     const {complete, approve, paid} = chore;
                     return (complete && !approve && !paid);
                 })
@@ -112,12 +148,12 @@ const ParentView = () => {
                     )
                 })}
 
-                {chores.filter(chore => {
+                {state.chores.filter(chore => {
                     const {complete, approve, paid} = chore;
                     return (!complete && !approve && !paid);
                 }).length > 0 &&
                 <h3>Chores to Complete</h3>}
-                {chores.filter(chore => {
+                {state.chores.filter(chore => {
                     const {complete, approve, paid} = chore;
                     return (!complete && !approve && !paid);
                 })

@@ -1,8 +1,9 @@
 import {
     UPDATE_CHILDREN,
-    UPDATE_CHORE,
+    UPDATE_CHORES,
     REMOVE_CHILD,
-    DELETE_CHORE
+    REMOVE_CHORE,
+    SET_CURRENT_CHILD
 } from "./actions";
 
 import { useReducer } from "react";
@@ -16,14 +17,37 @@ export const reducer = (state, action) => {
                 children: [...action.children],
             }
 
+        // create new children array in newState with specified child removed then return state with new children array
         case REMOVE_CHILD: 
-            let newState = state.children.filter(child => {
+            let newChildren = state.children.filter(child => {
                 return child._id !== action._id
             })
 
             return {
                 ...state,
-                children: newState
+                children: [...newChildren]
+            }
+
+        case SET_CURRENT_CHILD: 
+            return {
+                ...state,
+                currentChild: action.currentChild
+            }
+            
+        case UPDATE_CHORES: 
+            return {
+                ...state,
+                chores: [...action.chores]
+            }
+
+        case REMOVE_CHORE: 
+            let newChores = state.chores.filter(chore => {
+                return chore._id !== action._id
+            })
+
+            return {
+                ...state,
+                chores: [...newChores]
             }
         // if it's non of these actions, do not update state at all and keep things the same!
         default: 
