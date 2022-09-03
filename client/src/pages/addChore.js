@@ -5,6 +5,7 @@ import {QUERY_PARENT, QUERY_CHILD} from '../utils/queries';
 import Auth from '../utils/auth';
 import {useNavigate, Link} from 'react-router-dom';
 
+
 const addChore = () => {
     const navigate = useNavigate();
     const [addChore] = useMutation(ADD_CHORE)
@@ -14,7 +15,6 @@ const addChore = () => {
 
     // get current user parent profile
     const profile = Auth.getProfile();
-    // console.log(profile.data._id);
 
     // query user data from parent collection
     const { loading, error, data: parentData } = useQuery(QUERY_PARENT, {
@@ -43,6 +43,7 @@ const addChore = () => {
                     'child' // Query name
                 ],
             })
+
             window.location.assign(`/children/${childId}`)
             // navigate(`/children/${childId}`)
         } catch (err) {
