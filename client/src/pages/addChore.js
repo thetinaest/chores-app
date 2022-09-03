@@ -4,6 +4,7 @@ import {ADD_CHORE} from '../utils/mutations';
 import {QUERY_PARENT, QUERY_CHILD} from '../utils/queries';
 import Auth from '../utils/auth';
 import {useNavigate, Link} from 'react-router-dom';
+import {useAppContext} from '../utils/GlobalState';
 
 
 const addChore = () => {
@@ -12,6 +13,7 @@ const addChore = () => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [childId, setChildId] = useState('');
+    const [state, dispatch] = useAppContext();
 
     // get current user parent profile
     const profile = Auth.getProfile();
@@ -84,7 +86,7 @@ const addChore = () => {
                 setChildId(e.target.value);
             }}>
                 <option>Select a child...</option>
-                {children.map(child => {
+                {state.children.map(child => {
                     return <option value={child._id} key={child._id}>{child.displayName || child.username}</option>
                 })}
             </select>

@@ -29,10 +29,10 @@ const ChildCard = (props) => {
                 variables: {
                     _id
                 },
-                // refetchQueries: [
-                //     {query: QUERY_PARENT}, // DocumentNode object parsed with gql
-                //     'parent' // Query name
-                // ]
+                refetchQueries: [
+                    {query: QUERY_PARENT}, // DocumentNode object parsed with gql
+                    'parent' // Query name
+                ]
             })
             // Remove child from indexedDB
             idbPromise('children', 'delete', {_id: data.deleteChild._id})
