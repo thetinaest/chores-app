@@ -3,7 +3,8 @@ import {
     UPDATE_CHORES,
     REMOVE_CHILD,
     REMOVE_CHORE,
-    SET_CURRENT_CHILD
+    SET_CURRENT_CHILD,
+    LOAD_CHORES
 } from "./actions";
 
 import { useReducer } from "react";
@@ -34,7 +35,7 @@ export const reducer = (state, action) => {
                 currentChild: action.currentChild
             }
             
-        case UPDATE_CHORES: 
+        case LOAD_CHORES: 
             return {
                 ...state,
                 chores: [...action.chores]
@@ -48,6 +49,20 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 chores: [...newChores]
+            }
+
+        case UPDATE_CHORES: 
+            let updatedChores = state.chores.map(chore => {
+                if (chore._id === action._id) {
+                    return {...chore, ...action.choreInfo}
+                } else {
+                    return chore;
+                }
+            })
+
+            return {
+                ...state,
+                chores: [...updatedChores]
             }
         // if it's non of these actions, do not update state at all and keep things the same!
         default: 

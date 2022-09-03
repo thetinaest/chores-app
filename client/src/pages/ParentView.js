@@ -4,7 +4,7 @@ import {useQuery, useMutation} from '@apollo/client';
 import {QUERY_CHILD} from '../utils/queries';
 import {UPDATE_CHORE, DELETE_CHORE} from '../utils/mutations';
 import {useAppContext} from '../utils/GlobalState';
-import {SET_CURRENT_CHILD, UPDATE_CHORES, REMOVE_CHORE} from '../utils/actions';
+import {SET_CURRENT_CHILD, UPDATE_CHORES, REMOVE_CHORE, LOAD_CHORES} from '../utils/actions';
 import {idbPromise} from '../utils/helpers'
 
 import ChoreCard from '../components/ChoreCard';
@@ -51,7 +51,7 @@ const ParentView = () => {
         // if chores in query
         if (chores) {
             dispatch({
-                type: UPDATE_CHORES,
+                type: LOAD_CHORES,
                 chores
             })
 
@@ -63,27 +63,55 @@ const ParentView = () => {
       }, [loading])
 
 
-      const removeChore = async (_id) => {
+      const removeChore = async ({_id}) => {
+        // remove chore from global state
         dispatch({
             type: REMOVE_CHORE,
             _id
         })
+
+        // remove chore from indexedDB
+        idbPromise('chores', 'delete', {_id});
 
         await deleteChore({
             variables: {_id}
         })
       }
 
-      const approveChore = async (_id) => {
-        await updateChore({
-            variables: { _id, approve: true}
+      const approveChore = async (chore) => {
+        // update chore in global state
+        dispatch({
+            type: UPDATE_CHORES,
+            _id: chore._id,
+            choreInfo: {
+                approve: true,
+            }
         })
+
+        await updateChore({
+            variables: { ...chore, approve: true}
+        })
+
+        // update chore in indexedDB
+        idbPromise('chores', 'put', { ...chore, approve: true});
       }
 
-      const reassignChore = async (_id) => {
-        await updateChore({
-            variables: { _id, complete: false}
+      const reassignChore = async (chore) => {
+        // update chore in global state
+        dispatch({
+            type: UPDATE_CHORES,
+            _id: chore._id,
+            choreInfo: {
+                complete: false,
+            }
         })
+
+        await updateChore({
+            variables: { ...chore, complete: false}
+        })
+
+        // update chore in indexedDB
+        idbPromise('chores', 'put', { ...chore, complete: false});
       }
 
 
@@ -109,10 +137,10 @@ const ParentView = () => {
                         <ChoreCard chore={chore} />
                         <div className='btnGroup'>
                             <button type="button" onClick={() => {
-                                return removeChore(chore._id);
+                                return removeChore(chore);
                             }}>Mark as Paid</button>
                             <button type="button" onClick={() => {
-                                return removeChore(chore._id);
+                                return removeChore(chore);
                             }}>Remove Chore</button>
                         </div>
 
@@ -135,13 +163,13 @@ const ParentView = () => {
                         <ChoreCard chore={chore} />
                         <div className='btnGroup'>
                             <button type="button" onClick={() => {
-                                return approveChore(chore._id);
+                                return approveChore(chore);
                             }}>Approve Chore</button>
                             <button type="button" onClick={() => {
-                                return reassignChore(chore._id);
+                                return reassignChore(chore);
                             }}>Reassign Chore</button>
                             <button type="button" onClick={() => {
-                                return removeChore(chore._id);
+                                return removeChore(chore);
                             }}>Remove Chore</button>
                         </div>
                         </div>
@@ -163,7 +191,7 @@ const ParentView = () => {
                         <ChoreCard chore={chore} />
                         <div className='btnGroup'>
                             <button type="button" onClick={() => {
-                                return removeChore(chore._id);
+                                return removeChore(chore);
                             }}>Remove Chore</button>
                         </div>
                         </div>
