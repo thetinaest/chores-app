@@ -21,6 +21,7 @@
     "react-bootstrap": "^2.4.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
+    "sw-precache-webpack-plugin": "^1.0.0",
     "workbox-background-sync": "^6.5.4",
     "workbox-broadcast-update": "^6.5.4",
     "workbox-cacheable-response": "^6.5.4",
@@ -33,8 +34,5 @@
     "workbox-routing": "^6.5.4",
     "workbox-strategies": "^6.5.4",
     "workbox-streams": "^6.5.4"
-  },
-  "devDependencies": {
-    "sw-precache-webpack-plugin": "^1.0.0"
   }
 }
