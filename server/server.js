@@ -33,6 +33,10 @@ const startApolloServer = async (typeDefs, resolvers) => {
     app.use(express.static(path.join(__dirname, '../client/build')));
   }
 
+  app.get('/service-worker.js', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build/service-worker.js'));
+  })
+
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
   })
