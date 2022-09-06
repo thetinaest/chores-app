@@ -1,5 +1,4 @@
 const { Schema, model } = require('mongoose');
-const choreSchema = require('./Chore');
 const bcrypt = require('bcrypt');
 
 const childSchema = new Schema(
@@ -7,6 +6,7 @@ const childSchema = new Schema(
     username: {
         type: String,
         required: 'You need a username!',
+        unique: true,
         minlength: 1,
         maxlength: 20
     },
@@ -14,6 +14,12 @@ const childSchema = new Schema(
         type: String,
         required: true,
         minlength: 5
+    },
+    displayName: {
+      type: String,
+      required: 'Must have a name!',
+      minlength: 1,
+      maxlength: 20
     },
     chores: [ 
       {

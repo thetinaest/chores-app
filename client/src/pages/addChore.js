@@ -3,18 +3,20 @@ import { useMutation, useQuery } from '@apollo/client'
 import {ADD_CHORE} from '../utils/mutations';
 import {QUERY_PARENT, QUERY_CHILD} from '../utils/queries';
 import Auth from '../utils/auth';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
+import {useAppContext} from '../utils/GlobalState';
+
 
 const addChore = () => {
     const navigate = useNavigate();
     const [addChore] = useMutation(ADD_CHORE)
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
-    const [child, setChild] = useState('');
+    const [childId, setChildId] = useState('');
+    const [state, dispatch] = useAppContext();
 
     // get current user parent profile
     const profile = Auth.getProfile();
-    // console.log(profile.data._id);
 
     // query user data from parent collection
     const { loading, error, data: parentData } = useQuery(QUERY_PARENT, {
@@ -26,10 +28,12 @@ const addChore = () => {
     const handleSubmit = async e => {
         e.preventDefault()
 
-        
-        const childId = children.filter(fchild => fchild.username === child)[0]._id
-
         try {
+
+            if (!childId) {
+                throw 'Please select a child';
+            }
+
             const {data} = await addChore({
                 variables: {
                     name, 
@@ -41,20 +45,19 @@ const addChore = () => {
                     'child' // Query name
                 ],
             })
-            navigate(`/children/${childId}`)
+
+            window.location.assign(`/children/${childId}`)
+            // navigate(`/children/${childId}`)
         } catch (err) {
             console.log(err);
         }
     }
 
-
-    // if (loading) return 'Loading...'
-
-    // if (error) return `Error! ${error.message}`
-
-
     return (
-        <form className='d-flex flex-column mt-3'onSubmit={handleSubmit}>
+        <>
+            <Link to='/create-child' className="navElement">Create Child</Link>
+            <Link to="/parent-home" className="navElement">Home</Link>
+            <form className='d-flex flex-column mt-3'onSubmit={handleSubmit}>
             <h1>Add Chore</h1>
             <input
                 name="name"
@@ -74,23 +77,24 @@ const addChore = () => {
                 rows='5'
                 required
             />
-            <input 
-                type="text" 
-                list="childList" 
-                placeholder="Child"
-                value={child}
-                onChange={(e) => {
-                    setChild(e.target.value);
-                }}
-            />
-            <datalist id="childList">
-                {children.map(child => {
-                    return <option value={child.username} key={child._id}/>
+            <select 
+            name="child-list" 
+            id="child-list"
+            className="mt-1"
+            required
+            onChange={(e) => {
+                setChildId(e.target.value);
+            }}>
+                <option>Select a child...</option>
+                {state.children.map(child => {
+                    return <option value={child._id} key={child._id}>{child.displayName || child.username}</option>
                 })}
-            </datalist>
+            </select>
 
             <button type="submit"  className='w-100 mt-2 rounded'>Add Chore</button>
         </form>
+        </>
+        
     )
 }
 

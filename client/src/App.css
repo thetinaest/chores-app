@@ -26,6 +26,11 @@ body{
   font-size: 20px;
 }
 
+.navElement:hover {
+  color: white;
+  background-color: black;
+}
+
 form input {
   border-radius: 5px;
   border: 2px solid var(--color1);
@@ -38,9 +43,10 @@ form textarea {
   border: 2px solid var(--color1);
 }
 
-.appName{
-  font-size: 76px;
-  color: var(--color1);
+form select {
+  border-radius: 5px;
+  border: 2px solid var(--color1);
+  height: 40px;
 }
 
 .btnGroup button, form button, .btnGroup .button {
@@ -48,7 +54,6 @@ form textarea {
   margin-bottom: 50px;
   border-radius: .15rem;
   padding: 12px;
-  /* width:25%; */
   text-decoration: none;
   font-weight: 400;
   font-size: 26px;
@@ -69,6 +74,7 @@ form textarea {
 }
 
 .choreCard {
+  position: relative;
   border: 2px solid var(--color1);
   border-radius: 5px;
   width: 80%;

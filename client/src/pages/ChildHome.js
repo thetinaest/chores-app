@@ -1,11 +1,16 @@
+import {useEffect} from 'react';
 import {useQuery, useMutation} from '@apollo/client';
 import {QUERY_CHILD} from '../utils/queries';
 import {UPDATE_CHORE} from '../utils/mutations';
 import Auth from '../utils/auth';
+import {useAppContext} from '../utils/GlobalState';
+import {UPDATE_CHORES, LOAD_CHORES} from '../utils/actions';
+import {idbPromise} from '../utils/helpers';
 
 import ChoreCard from '../components/ChoreCard';
 
 const ChildHome = () => {
+    const [state, dispatch] = useAppContext();
 
     //mutations
     const [updateChore] = useMutation(UPDATE_CHORE, {
@@ -23,29 +28,70 @@ const ChildHome = () => {
     })
     const chores = childData?.child.chores || [];
 
-    const markComplete = async (_id) => {
-        await updateChore({
-            variables: { _id, complete: true}
+    // update state with current child and chores
+    useEffect(() => {
+        
+        // if chores in query
+        if (chores) {
+            dispatch({
+                type: LOAD_CHORES,
+                chores
+            })
+
+            // add all chores to indexedDB
+            chores.forEach(chore => {
+                idbPromise('chores', 'put', chore);
+            })
+        }
+      }, [loading])
+
+    const markComplete = async (chore) => {
+        // update chore in global state
+        dispatch({
+            type: UPDATE_CHORES,
+            _id: chore._id,
+            choreInfo: {
+                complete: true,
+            }
         })
+
+        await updateChore({
+            variables: { ...chore, complete: true}
+        })
+
+        // update chore in indexedDB
+        idbPromise('chores', 'put', {... chore, complete: true});
     }
 
-    const redoChore = async (_id) => {
-        await updateChore({
-            variables: { _id, complete: false}
+    const redoChore = async (chore) => {
+        // update chore in global state
+        dispatch({
+            type: UPDATE_CHORES,
+            _id: chore._id,
+            choreInfo: {
+                complete: false,
+            }
         })
+        
+        await updateChore({
+            variables: { ...chore, complete: false}
+        })
+
+        // update chore in indexedDB
+        idbPromise('chores', 'put', {...chore , complete: false});
     }
 
     return (
         <>
-        <h2 className='my-3'>{profile.data.username}'s Chores</h2>
+        <h2 className='my-3'>{profile.data.displayName || profile.data.username}'s Chores</h2>
         <div className='choresList d-flex flex-column align-items-center'>
-        {chores.filter(chore => {
+        {state.chores.filter(chore => {
                 const {complete, approve, paid} = chore;
                 return (complete && approve && !paid);
             }).length > 0 &&
             <h3>Awaiting Payment</h3>
             }
-            {chores.filter(chore => {
+            {state.chores.filter(chore => {
                 const {complete, approve, paid} = chore;
                 return (complete && approve && !paid);
             })
@@ -57,12 +103,12 @@ const ChildHome = () => {
                 )
             })}
             
-            {chores.filter(chore => {
+            {state.chores.filter(chore => {
                 const {complete, approve, paid} = chore;
                 return (complete && !approve && !paid);
             }).length > 0 &&
             <h3>Awaiting Approval</h3>}
-            {chores.filter(chore => {
+            {state.chores.filter(chore => {
                 const {complete, approve, paid} = chore;
                 return (complete && !approve && !paid);
             })
@@ -72,19 +118,19 @@ const ChildHome = () => {
                     <ChoreCard chore={chore} />
                     <div className='btnGroup'>
                         <button type="button" onClick={() => {
-                            return redoChore(chore._id);
+                            return redoChore(chore);
                         }}>Redo</button>
                     </div>
                     </div>
                 )
             })}
 
-            {chores.filter(chore => {
+            {state.chores.filter(chore => {
                 const {complete, approve, paid} = chore;
                 return (!complete && !approve && !paid);
             }).length > 0 &&
             <h3>Chores to Complete</h3>}
-            {chores.filter(chore => {
+            {state.chores.filter(chore => {
                 const {complete, approve, paid} = chore;
                 return (!complete && !approve && !paid);
             })
@@ -94,7 +140,7 @@ const ChildHome = () => {
                     <ChoreCard chore={chore} />
                     <div className='btnGroup'>
                         <button type="button" onClick={() => {
-                            return markComplete(chore._id);
+                            return markComplete(chore);
                             }}>Mark as Complete
                         </button>
                     </div>

@@ -18,8 +18,7 @@ const Login = ({setLoggedIn}) => {
         try {
             const {data} = await loginParent({
                 variables: { username, password}
-              })
-            // console.log(data)
+            })
             AuthService.login(data.loginParent.token)
             setLoggedIn(true);
             navigate('/parent-home');

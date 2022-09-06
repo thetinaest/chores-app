@@ -24,6 +24,7 @@ import CreateChild from './pages/createChild';
 import AddChore from './pages/addChore';
 import ChildHome from './pages/ChildHome';
 import SignUp from './pages/SignUp';
+import { AppProvider } from './utils/GlobalState';
 
 const httpLink = createHttpLink({
   uri: '/graphql'
@@ -48,20 +49,21 @@ function App() {
 
   return (
     <ApolloProvider client={client}>
-    <Router>     
-      <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
-      <Routes>
-        <Route exact path="/" element={<Dashboard />} />
-        <Route exact path="/login-parent" element={<LoginParent setLoggedIn={setLoggedIn}/>} />
-        <Route exact path="/login-child" element={<LoginChild setLoggedIn={setLoggedIn}/>} />
-        <Route exact path="/sign-up" element={<SignUp setLoggedIn={setLoggedIn}/>} />
-        <Route exact path="/parent-home" element={<ParentHome />} />
-        <Route exact path="/create-child" element={<CreateChild />} />
-        <Route path="/add-chore" element={<AddChore />} />
-        <Route exact path="/children/:childId" element={<ParentView />} />
-        <Route exact path="/child-home" element={<ChildHome />} />
-      </Routes>
-            
+    <Router>
+      <AppProvider>    
+        <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
+        <Routes>
+          <Route exact path="/" element={<Dashboard />} />
+          <Route exact path="/login-parent" element={<LoginParent setLoggedIn={setLoggedIn}/>} />
+          <Route exact path="/login-child" element={<LoginChild setLoggedIn={setLoggedIn}/>} />
+          <Route exact path="/sign-up" element={<SignUp setLoggedIn={setLoggedIn}/>} />
+          <Route exact path="/parent-home" element={<ParentHome />} />
+          <Route exact path="/create-child" element={<CreateChild />} />
+          <Route path="/add-chore" element={<AddChore />} />
+          <Route exact path="/children/:childId" element={<ParentView />} />
+          <Route exact path="/child-home" element={<ChildHome />} />
+        </Routes>
+      </AppProvider>      
     </Router>
   </ApolloProvider>
   );

@@ -7,6 +7,7 @@ import {useNavigate} from 'react-router-dom';
 const SignUp = ({setLoggedIn}) => {
     const navigate = useNavigate();
     const [addParent, {loading, error}] = useMutation(ADD_PARENT);
+    const [displayName, setDisplayName] = useState('')
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -20,7 +21,8 @@ const SignUp = ({setLoggedIn}) => {
             variables: {
                 username,
                 email,
-                password
+                password,
+                displayName
             }
         })
         AuthService.login(data.addParent.token)
@@ -34,6 +36,15 @@ const SignUp = ({setLoggedIn}) => {
     return(
         <form className='d-flex flex-column' onSubmit={handleSubmit}>
             <h1>Sign Up</h1>
+            <input
+                name="displayName"
+                value={displayName}
+                onChange={(e) => setDisplayName(e.target.value)}
+                placeholder="Name"
+                type="text"
+                required
+                
+            />
             <input
                 name="username"
                 value={username}

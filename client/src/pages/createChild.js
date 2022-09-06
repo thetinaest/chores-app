@@ -1,13 +1,18 @@
 import { useState } from 'react'
-import { useMutation, useQuery, gql } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import {ADD_CHILD} from '../utils/mutations';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
 import Auth from '../utils/auth';
 import {QUERY_PARENT} from '../utils/queries';
+import {idbPromise} from '../utils/helpers';
+import {useAppContext} from '../utils/GlobalState';
+import {UPDATE_CHILDREN} from '../utils/actions';
 
 
 const createChild = () => {
     const navigate = useNavigate();
+    const [state, dispatch] = useAppContext();
+    const [displayName, setDisplayName] = useState('')
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
@@ -16,10 +21,10 @@ const createChild = () => {
 
     // query user data from parent collection
     const [createChild, loading, error ] = useMutation(ADD_CHILD, {
-        refetchQueries: [
-            {query: QUERY_PARENT}, // DocumentNode object parsed with gql
-            'parent' // Query name
-        ],
+        // refetchQueries: [
+        //     {query: QUERY_PARENT}, // DocumentNode object parsed with gql
+        //     'parent' // Query name
+        // ],
     })
     
     const handleSubmit = async e => {
@@ -30,27 +35,44 @@ const createChild = () => {
                 variables: {
                     username,
                     password,
+                    displayName,
                     parentId: profile.data._id
-                },
-                
+                }
             })
+            
+            if (!data) {
+                throw 'Invalid entry'
+            }
+            dispatch({
+                type: UPDATE_CHILDREN,
+                children: [...state.children, data.addChild.child]
+            })
+            // store child data in indexedDB
+            idbPromise('children', 'put', {...data.addChild.child});
             // navigate('/parent-home');
-            window.location.assign('/parent-home') 
+            window.location.assign('/parent-home');
         } catch (err) {
             console.log(err);
         }
     }
 
 
-    // if (loading) return 'Loading...'
-
-    // if (error) return `Error! ${error.message}`
-
-
     // login form set to require username and password
     return (
-        <form className='d-flex flex-column mt-3' onSubmit={handleSubmit}>
+        <>
+            <Link to='/add-chore' className="navElement">Add Chore</Link>
+            <Link to="/parent-home" className="navElement">Home</Link>
+            <form className='d-flex flex-column mt-3' onSubmit={handleSubmit}>
             <h1>Create Child</h1>
+            <input
+                name="displayName"
+                value={displayName}
+                onChange={(e) => setDisplayName(e.target.value)}
+                placeholder="Name"
+                type="text"
+                required
+                
+            />
             <input
                 name="username"
                 value={username}
@@ -70,6 +92,8 @@ const createChild = () => {
             />
             <button type="submit" className='w-100 mt-2 rounded'>Create Child</button>
         </form>
+        </>
+        
     )
 }
 
