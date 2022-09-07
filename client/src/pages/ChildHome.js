@@ -23,28 +23,6 @@ const ChildHome = () => {
     // get current user child profile
     const profile = Auth.getProfile();
 
-    const {loading, error, data: childData} = useQuery(QUERY_CHILD, {
-        variables: {_id: profile.data._id}
-    })
-    const chores = childData?.child.chores || [];
-
-    // update state with current child and chores
-    useEffect(() => {
-        
-        // if chores in query
-        if (chores) {
-            dispatch({
-                type: LOAD_CHORES,
-                chores
-            })
-
-            // add all chores to indexedDB
-            chores.forEach(chore => {
-                idbPromise('chores', 'put', chore);
-            })
-        }
-      }, [loading])
-
     const markComplete = async (chore) => {
         // update chore in global state
         dispatch({

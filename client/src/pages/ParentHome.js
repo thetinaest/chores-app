@@ -19,54 +19,13 @@ const ParentHome = () => {
     // get current user parent profile
     const profile = Auth.getProfile();
 
-        // check if user is logged in
-        if (Auth.loggedIn() && profile.data.username) {
+    // check if user is logged in
+    if (Auth.loggedIn() && profile.data.username) {
 
-        } else {
-          // navigate to dashboard if not logged in
-          navigate('/');
-        }
-
-    // query user data from parent collection
-    const { loading, error, data: parentData } = useQuery(QUERY_PARENT, {
-      variables: { _id: profile.data._id },
-    });
-
-    const childrenData = parentData?.parent.children || [];
-
-    useEffect(() => {
-      // if state.currentChild
-      if (state.currentChild) {
-        dispatch({
-          type: SET_CURRENT_CHILD,
-          currentChild: {}
-        })
-      }
-      // if children in query
-      if (childrenData) {
-        // update global state to contain children in query
-        dispatch({
-          type: UPDATE_CHILDREN,
-          children: childrenData
-        })
-
-        // add all children to indexedDB
-        childrenData.forEach(child => {
-          idbPromise('children', 'put', child);
-        })
-      } else if (!loading) {
-        idbPromise('children', 'get').then(children => {
-          // use retrieved data to set global state for offline browsing
-          dispatch({
-            type: UPDATE_CHILDREN,
-            children: children
-          })
-        })
-      }
-    }, [loading])
-
-
-
+    } else {
+      // navigate to dashboard if not logged in
+      navigate('/');
+    }
 
   //return html
   return (

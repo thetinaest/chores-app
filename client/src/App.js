@@ -13,6 +13,8 @@ import Auth from './utils/auth';
 
 // import components
 import Header from './components/Header';
+import InitializeParent from './components/InitializeParent';
+import InitializeChild from './components/InitializeChild';
 
 // import pages
 import LoginParent from './pages/loginParent';
@@ -47,11 +49,22 @@ const client = new ApolloClient({
 function App() {
   const [loggedIn, setLoggedIn] = useState(Auth.loggedIn());
 
+  let profile;
+
+  if (loggedIn) {
+    profile = Auth.getProfile();
+  } 
+
   return (
     <ApolloProvider client={client}>
     <Router>
       <AppProvider>    
         <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
+        {/* Set initial parent state */}
+        {loggedIn && profile.data.userType === 'parent' && <InitializeParent />}
+        {/* Set initial chile state */}
+        {loggedIn && profile.data.userType === 'child' && <InitializeChild />}
+        
         <Routes>
           <Route exact path="/" element={<Dashboard />} />
           <Route exact path="/login-parent" element={<LoginParent setLoggedIn={setLoggedIn}/>} />
