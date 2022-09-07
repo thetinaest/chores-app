@@ -1,10 +1,9 @@
-import {useEffect} from 'react';
-import {useQuery, useMutation} from '@apollo/client';
+import {useMutation} from '@apollo/client';
 import {QUERY_CHILD} from '../utils/queries';
 import {UPDATE_CHORE} from '../utils/mutations';
 import Auth from '../utils/auth';
 import {useAppContext} from '../utils/GlobalState';
-import {UPDATE_CHORES, LOAD_CHORES} from '../utils/actions';
+import {UPDATE_CHORES} from '../utils/actions';
 import {idbPromise} from '../utils/helpers';
 
 import ChoreCard from '../components/ChoreCard';

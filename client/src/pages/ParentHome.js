@@ -1,13 +1,10 @@
 import React, {useEffect, useState} from "react";
-import { useMutation, useQuery } from "@apollo/client";
-import { QUERY_PARENT } from "../utils/queries";
 import Auth from "../utils/auth";
 import {useNavigate, Link} from 'react-router-dom';
 
 
 import ChildCard from '../components/ChildCard';
-import { SET_CURRENT_CHILD, UPDATE_CHILDREN } from "../utils/actions";
-import { idbPromise } from "../utils/helpers";
+import { SET_CURRENT_CHILD } from "../utils/actions";
 import {useAppContext} from '../utils/GlobalState';
 
 // add parent homescreen function
@@ -26,6 +23,14 @@ const ParentHome = () => {
       // navigate to dashboard if not logged in
       navigate('/');
     }
+
+    // resets current child to null when visiting home page
+    useEffect(() => {
+      dispatch({
+        type: SET_CURRENT_CHILD,
+        currentChild: {}
+      })
+    }, [])
 
   //return html
   return (
