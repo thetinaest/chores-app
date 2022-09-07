@@ -9,21 +9,26 @@ import {useAppContext} from '../utils/GlobalState';
 
 const addChore = () => {
     const navigate = useNavigate();
+    const [state, dispatch] = useAppContext();
     const [addChore] = useMutation(ADD_CHORE)
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
-    const [childId, setChildId] = useState('');
-    const [state, dispatch] = useAppContext();
-
+    const [childId, setChildId] = useState(state.currentChild._id || '');
+    
     // get current user parent profile
     const profile = Auth.getProfile();
 
-    // query user data from parent collection
-    const { loading, error, data: parentData } = useQuery(QUERY_PARENT, {
-      variables: { _id: profile.data._id },
-    });
+    // prevent users from using the add-chore page if they have no children
+    if (state.children.length === 0) {
+        window.location.assign('/parent-home');
+    }
 
-    const children = parentData?.parent.children || [];
+    // query user data from parent collection
+    // const { loading, error, data: parentData } = useQuery(QUERY_PARENT, {
+    //   variables: { _id: profile.data._id },
+    // });
+
+    // const children = parentData?.parent.children || [];
 
     const handleSubmit = async e => {
         e.preventDefault()
@@ -82,6 +87,7 @@ const addChore = () => {
             id="child-list"
             className="mt-1"
             required
+            defaultValue={childId}
             onChange={(e) => {
                 setChildId(e.target.value);
             }}>

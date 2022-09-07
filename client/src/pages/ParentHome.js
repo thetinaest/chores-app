@@ -6,7 +6,7 @@ import {useNavigate, Link} from 'react-router-dom';
 
 
 import ChildCard from '../components/ChildCard';
-import { UPDATE_CHILDREN } from "../utils/actions";
+import { SET_CURRENT_CHILD, UPDATE_CHILDREN } from "../utils/actions";
 import { idbPromise } from "../utils/helpers";
 import {useAppContext} from '../utils/GlobalState';
 
@@ -35,6 +35,13 @@ const ParentHome = () => {
     const childrenData = parentData?.parent.children || [];
 
     useEffect(() => {
+      // if state.currentChild
+      if (state.currentChild) {
+        dispatch({
+          type: SET_CURRENT_CHILD,
+          currentChild: {}
+        })
+      }
       // if children in query
       if (childrenData) {
         // update global state to contain children in query
@@ -65,7 +72,9 @@ const ParentHome = () => {
   return (
     <>
       <Link to='/create-child' className="navElement">Create Child</Link>
-      <Link to='/add-chore' className="navElement">Add Chore</Link>
+      {state.children.length > 0 &&
+        <Link to='/add-chore' className="navElement">Add Chore</Link>
+      }
       <button onClick= {() => setRemovingChild(!removingChild)}className="navElement border-0 p-2">{!removingChild ? 'Remove Child' : 'Finish'}</button>
 
       <h2 className="my-3">{`${profile.data.displayName || profile.data.username}'s Children`}</h2>

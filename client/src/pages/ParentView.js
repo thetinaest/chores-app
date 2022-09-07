@@ -43,7 +43,7 @@ const ParentView = () => {
           // update global state to contain children in query
           dispatch({
             type: SET_CURRENT_CHILD,
-            currentChild: childName
+            currentChild: {childName, _id: childId}
           })
   
         }
@@ -119,7 +119,7 @@ const ParentView = () => {
         <>
         <Link to="/parent-home" className="navElement">Home</Link>
         <Link to="/add-chore" className="navElement">Add Chore</Link>
-        <h2 className='my-3'>{childName}'s Chores</h2>
+        <h2 className='my-3'>{state.currentChild.childName}'s Chores</h2>
         <div className='choresList d-flex flex-column align-items-center'>
             {state.chores.filter(chore => {
                     const {complete, approve, paid} = chore;

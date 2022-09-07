@@ -8,7 +8,7 @@ const AppProvider = ({value = [], ...props}) => {
 
     const [state, dispatch] = useAppReducer({
         children: [],
-        currentChild: '',
+        currentChild: {},
         chores: []
     })
     // use this to confirm it works!
