@@ -30,6 +30,15 @@ const Menu = (props) => {
         )
     } else if (profile.data.userType === 'child') {
         // CHILD menu
+        return(
+            <>
+                <div className="menu">
+                    <button type="button" className="btn-close close-menu-btn" aria-label="Close" onClick={toggleMenu}></button>
+
+                    <Link className='menu-btn' to="/dashboard" onClick={logout}>Logout</Link>
+                </div>
+            </>
+        )
         
     }
 

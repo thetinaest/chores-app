@@ -2,10 +2,12 @@ import {UPDATE_PARENT} from '../utils/mutations';
 import { useState } from 'react';
 import {useMutation} from '@apollo/client';
 import Auth from '../utils/auth';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
+import { useAppContext } from '../utils/GlobalState';
 
 const ParentProfile = () => {
     const navigate = useNavigate();
+    const [state, dispatch] = useAppContext();
 
     const {data: profile} = Auth.getProfile();
 
@@ -39,8 +41,15 @@ const ParentProfile = () => {
     }
 
     return(
-        <form className='d-flex flex-column' onSubmit={handleSubmit}>
-            <h1>Edit Profile</h1>
+        <>
+            <Link to="/parent-home" className="navElement">Home</Link>
+            <Link to='/create-child' className="navElement">Create Child</Link>
+            {state.children.length > 0 &&
+                <Link to='/add-chore' className="navElement">Add Chore</Link>
+            }
+
+            <form className='d-flex flex-column' onSubmit={handleSubmit}>
+            <h1 className="mt-3">Edit Profile</h1>
             <input
                 name="displayName"
                 value={displayName}
@@ -63,13 +72,16 @@ const ParentProfile = () => {
                 name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email (optional)"
+                placeholder="Email"
                 type="text"
+                required
                 
             />
             <button type="submit" className='w-100 mt-2 rounded'>Update Profile</button>
             {error && <div>Error! {error.message}</div>}
         </form>
+        </>
+
     );
 }
 
