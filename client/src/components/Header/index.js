@@ -1,23 +1,30 @@
-import {Link} from 'react-router-dom';
-import Auth from '../../utils/auth';
+import { useState } from 'react';
+
+import Menu from '../Menu';
 import './style.css';
 
 const Header = (props) => {
-    const {loggedIn, setLoggedIn} = props;
+    const {loggedIn} = props;
 
-    // logout user
-    const logout = e => {
-        e.preventDefault();
-        setLoggedIn(false);
-        Auth.logout();
+    const [menuOpen, setMenuOpen] = useState(false);
+
+
+    const toggleMenu = () => {
+        setMenuOpen(!menuOpen);
     }
-
 
     return (
         <div>
             <h1 className="appName">Jessie's List</h1>
 
-            {loggedIn && <Link className='logout-btn' to="/dashboard" onClick={logout}>Logout</Link>}
+            {loggedIn && 
+             <button 
+             className="open-menu-btn"
+             onClick={toggleMenu}
+             >Menu</button>
+            }
+           
+            {loggedIn && menuOpen && <Menu toggleMenu={toggleMenu} {...props}/>}
         </div>
     )
 }
