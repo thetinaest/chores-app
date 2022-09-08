@@ -26,6 +26,8 @@ import CreateChild from './pages/createChild';
 import AddChore from './pages/addChore';
 import ChildHome from './pages/ChildHome';
 import SignUp from './pages/SignUp';
+import ParentProfile from './pages/ParentProfile';
+
 import { AppProvider } from './utils/GlobalState';
 
 const httpLink = createHttpLink({
@@ -70,10 +72,13 @@ function App() {
           <Route exact path="/login-parent" element={<LoginParent setLoggedIn={setLoggedIn}/>} />
           <Route exact path="/login-child" element={<LoginChild setLoggedIn={setLoggedIn}/>} />
           <Route exact path="/sign-up" element={<SignUp setLoggedIn={setLoggedIn}/>} />
+
           <Route exact path="/parent-home" element={<ParentHome />} />
           <Route exact path="/create-child" element={<CreateChild />} />
           <Route path="/add-chore" element={<AddChore />} />
           <Route exact path="/children/:childId" element={<ParentView />} />
+          <Route exact path="/parent-profile" element={<ParentProfile />} />
+
           <Route exact path="/child-home" element={<ChildHome />} />
         </Routes>
       </AppProvider>      
