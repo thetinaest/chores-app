@@ -120,7 +120,7 @@ const resolvers = {
 			}
 		},
 		updateParent: async (parent, args, context, info) => {
-			const updatedParent = await Parent.findByIdAndUpdate(args._id, args, { new: true })
+			const updatedParent = await Parent.findByIdAndUpdate(args._id, args, { new: true });
 
 			const token = signToken({
 				...updatedParent._doc,

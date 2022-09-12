@@ -35,9 +35,9 @@ const ParentProfile = () => {
         Auth.login(data.updateParent.token)
         
         navigate('/parent-home');
-    } catch (err) {
-        console.log(err);
-    }
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     return(
@@ -47,6 +47,7 @@ const ParentProfile = () => {
             {state.children.length > 0 &&
                 <Link to='/add-chore' className="navElement">Add Chore</Link>
             }
+            {/* <Link to='/parent-password' className="navElement">Change Password</Link> */}
 
             <form className='d-flex flex-column' onSubmit={handleSubmit}>
             <h1 className="mt-3">Edit Profile</h1>

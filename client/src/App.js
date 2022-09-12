@@ -27,6 +27,7 @@ import AddChore from './pages/addChore';
 import ChildHome from './pages/ChildHome';
 import SignUp from './pages/SignUp';
 import ParentProfile from './pages/ParentProfile';
+import ParentPassword from './pages/ParentPassword';
 
 import { AppProvider } from './utils/GlobalState';
 
@@ -78,6 +79,7 @@ function App() {
           <Route path="/add-chore" element={<AddChore />} />
           <Route exact path="/children/:childId" element={<ParentView />} />
           <Route exact path="/parent-profile" element={<ParentProfile />} />
+          {/* <Route exact path="parent-password" element={<ParentPassword /> } /> */}
 
           <Route exact path="/child-home" element={<ChildHome />} />
         </Routes>
