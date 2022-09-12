@@ -40,16 +40,13 @@ const parentSchema = new Schema(
 
 // set up pre-save middleware to create password
 parentSchema.pre('save', async function(next) {
-  console.log('=================RUNNING=================');
-    if (this.isNew || this.isModified('password')) {
+    if (this.isNew || this.isModified('password') || true) {
       const saltRounds = 10;
       this.password = await bcrypt.hash(this.password, saltRounds);
     }
   
     next();
 });
-
-
   
 // compare the incoming password with the hashed password
 parentSchema.methods.isCorrectPassword = async function(password) {

@@ -17,7 +17,7 @@ const ParentProfile = () => {
     const [email, setEmail] = useState(profile.email || '')
 
 
-    const handleSubmit = async e => {
+    const submitUpdatedProfile = async e => {
         e.preventDefault()
 
         console.log(profile._id);
@@ -47,40 +47,40 @@ const ParentProfile = () => {
             {state.children.length > 0 &&
                 <Link to='/add-chore' className="navElement">Add Chore</Link>
             }
-            {/* <Link to='/parent-password' className="navElement">Change Password</Link> */}
+            <Link to='/parent-password' className="navElement">Change Password</Link>
 
-            <form className='d-flex flex-column' onSubmit={handleSubmit}>
-            <h1 className="mt-3">Edit Profile</h1>
-            <input
-                name="displayName"
-                value={displayName}
-                onChange={(e) => setDisplayName(e.target.value)}
-                placeholder="Name"
-                type="text"
-                required
-                
-            />
-            <input
-                name="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Username"
-                type="text"
-                required
-                
-            />
-            <input
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
-                type="text"
-                required
-                
-            />
-            <button type="submit" className='w-100 mt-2 rounded'>Update Profile</button>
-            {error && <div>Error! {error.message}</div>}
-        </form>
+            <form className='d-flex flex-column' onSubmit={submitUpdatedProfile}>
+                <h1 className="mt-3">Edit Profile</h1>
+                <input
+                    name="displayName"
+                    value={displayName}
+                    onChange={(e) => setDisplayName(e.target.value)}
+                    placeholder="Name"
+                    type="text"
+                    required
+                    
+                />
+                <input
+                    name="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder="Username"
+                    type="text"
+                    required
+                    
+                />
+                <input
+                    name="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Email"
+                    type="text"
+                    required
+                    
+                />
+                <button type="submit" className='w-100 mt-2 rounded'>Update Profile</button>
+                {error && <div>Error! {error.message}</div>}
+            </form>
         </>
 
     );

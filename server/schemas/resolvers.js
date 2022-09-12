@@ -122,6 +122,11 @@ const resolvers = {
 		updateParent: async (parent, args, context, info) => {
 			const updatedParent = await Parent.findByIdAndUpdate(args._id, args, { new: true });
 
+			// run save hook if password is updated
+			if (args.password) {
+				updatedParent.save();
+			}
+
 			const token = signToken({
 				...updatedParent._doc,
 				userType: 'parent'
