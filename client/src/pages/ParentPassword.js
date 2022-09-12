@@ -27,7 +27,7 @@ const ParentPassword = () => {
                     password
                 }
             })
-            window.location.assign('/parent-home');
+            window.location.assign('/parent-profile');
         } catch (err) {
             console.log(err);
         }

@@ -117,88 +117,90 @@ const ParentView = () => {
 
     return (
         <>
-        <Link to="/parent-home" className="navElement">Home</Link>
-        <Link to="/add-chore" className="navElement">Add Chore</Link>
-        <h2 className='my-3'>{state.currentChild.childName}'s Chores</h2>
-        <div className='choresList d-flex flex-column align-items-center'>
-            {state.chores.filter(chore => {
-                    const {complete, approve, paid} = chore;
-                    return (complete && approve && !paid);
-                }).length > 0 &&
-                <h3>Awaiting Payment</h3>
-                }
-                {state.chores.filter(chore => {
-                    const {complete, approve, paid} = chore;
-                    return (complete && approve && !paid);
-                })
-                .map(chore => {
-                    return (
-                        <div className='choreCard' key={chore._id}> 
-                        <ChoreCard chore={chore} />
-                        <div className='btnGroup'>
-                            <button type="button" onClick={() => {
-                                return removeChore(chore);
-                            }}>Mark as Paid</button>
-                            <button type="button" onClick={() => {
-                                return removeChore(chore);
-                            }}>Remove Chore</button>
-                        </div>
+            <nav>
+                <Link to="/parent-home" className="navElement">Home</Link>
+                <Link to="/add-chore" className="navElement">Add Chore</Link>
+            </nav>
 
-                        </div>
-                    )
-                })}
-                
+            <h2 className='my-3'>{state.currentChild.childName}'s Chores</h2>
+            <div className='choresList d-flex flex-column align-items-center'>
                 {state.chores.filter(chore => {
-                    const {complete, approve, paid} = chore;
-                    return (complete && !approve && !paid);
-                }).length > 0 &&
-                <h3>Awaiting Approval</h3>}
-                {state.chores.filter(chore => {
-                    const {complete, approve, paid} = chore;
-                    return (complete && !approve && !paid);
-                })
-                .map(chore => {
-                    return (
-                        <div className='choreCard' key={chore._id}> 
-                        <ChoreCard chore={chore} />
-                        <div className='btnGroup'>
-                            <button type="button" onClick={() => {
-                                return approveChore(chore);
-                            }}>Approve Chore</button>
-                            <button type="button" onClick={() => {
-                                return reassignChore(chore);
-                            }}>Reassign Chore</button>
-                            <button type="button" onClick={() => {
-                                return removeChore(chore);
-                            }}>Remove Chore</button>
-                        </div>
-                        </div>
-                    )
-                })}
+                        const {complete, approve, paid} = chore;
+                        return (complete && approve && !paid);
+                    }).length > 0 &&
+                    <h3>Awaiting Payment</h3>
+                    }
+                    {state.chores.filter(chore => {
+                        const {complete, approve, paid} = chore;
+                        return (complete && approve && !paid);
+                    })
+                    .map(chore => {
+                        return (
+                            <div className='choreCard' key={chore._id}> 
+                            <ChoreCard chore={chore} />
+                            <div className='btnGroup'>
+                                <button type="button" onClick={() => {
+                                    return removeChore(chore);
+                                }}>Mark as Paid</button>
+                                <button type="button" onClick={() => {
+                                    return removeChore(chore);
+                                }}>Remove Chore</button>
+                            </div>
 
-                {state.chores.filter(chore => {
-                    const {complete, approve, paid} = chore;
-                    return (!complete && !approve && !paid);
-                }).length > 0 &&
-                <h3>Chores to Complete</h3>}
-                {state.chores.filter(chore => {
-                    const {complete, approve, paid} = chore;
-                    return (!complete && !approve && !paid);
-                })
-                .map(chore => {
-                    return (
-                        <div className='choreCard' key={chore._id}> 
-                        <ChoreCard chore={chore} />
-                        <div className='btnGroup'>
-                            <button type="button" onClick={() => {
-                                return removeChore(chore);
-                            }}>Remove Chore</button>
-                        </div>
-                        </div>
-                    )
-                })}
-        </div>
+                            </div>
+                        )
+                    })}
+                    
+                    {state.chores.filter(chore => {
+                        const {complete, approve, paid} = chore;
+                        return (complete && !approve && !paid);
+                    }).length > 0 &&
+                    <h3>Awaiting Approval</h3>}
+                    {state.chores.filter(chore => {
+                        const {complete, approve, paid} = chore;
+                        return (complete && !approve && !paid);
+                    })
+                    .map(chore => {
+                        return (
+                            <div className='choreCard' key={chore._id}> 
+                            <ChoreCard chore={chore} />
+                            <div className='btnGroup'>
+                                <button type="button" onClick={() => {
+                                    return approveChore(chore);
+                                }}>Approve Chore</button>
+                                <button type="button" onClick={() => {
+                                    return reassignChore(chore);
+                                }}>Reassign Chore</button>
+                                <button type="button" onClick={() => {
+                                    return removeChore(chore);
+                                }}>Remove Chore</button>
+                            </div>
+                            </div>
+                        )
+                    })}
 
+                    {state.chores.filter(chore => {
+                        const {complete, approve, paid} = chore;
+                        return (!complete && !approve && !paid);
+                    }).length > 0 &&
+                    <h3>Chores to Complete</h3>}
+                    {state.chores.filter(chore => {
+                        const {complete, approve, paid} = chore;
+                        return (!complete && !approve && !paid);
+                    })
+                    .map(chore => {
+                        return (
+                            <div className='choreCard' key={chore._id}> 
+                            <ChoreCard chore={chore} />
+                            <div className='btnGroup'>
+                                <button type="button" onClick={() => {
+                                    return removeChore(chore);
+                                }}>Remove Chore</button>
+                            </div>
+                            </div>
+                        )
+                    })}
+            </div>
         </>
     )
 

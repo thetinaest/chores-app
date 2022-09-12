@@ -60,8 +60,10 @@ const addChore = () => {
 
     return (
         <>
-            <Link to='/create-child' className="navElement">Create Child</Link>
-            <Link to="/parent-home" className="navElement">Home</Link>
+            <nav>
+                <Link to='/create-child' className="navElement">Create Child</Link>
+            </nav>
+            
             <form className='d-flex flex-column mt-3'onSubmit={handleSubmit}>
             <h1>Add Chore</h1>
             <input

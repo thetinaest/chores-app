@@ -60,10 +60,12 @@ const createChild = () => {
     // login form set to require username and password
     return (
         <>
-            {state.children.length > 0 &&
-                <Link to='/add-chore' className="navElement">Add Chore</Link>
-            }
-            <Link to="/parent-home" className="navElement">Home</Link>
+            <nav>
+                {state.children.length > 0 &&
+                    <Link to='/add-chore' className="navElement">Add Chore</Link>
+                }
+            </nav>
+            
             <form className='d-flex flex-column mt-3' onSubmit={handleSubmit}>
             <h1>Create Child</h1>
             <input

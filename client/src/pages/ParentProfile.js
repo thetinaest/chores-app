@@ -42,12 +42,14 @@ const ParentProfile = () => {
 
     return(
         <>
-            <Link to="/parent-home" className="navElement">Home</Link>
-            <Link to='/create-child' className="navElement">Create Child</Link>
-            {state.children.length > 0 &&
-                <Link to='/add-chore' className="navElement">Add Chore</Link>
-            }
-            <Link to='/parent-password' className="navElement">Change Password</Link>
+            <nav>
+                <Link to='/create-child' className="navElement">Create Child</Link>
+                {state.children.length > 0 &&
+                    <Link to='/add-chore' className="navElement">Add Chore</Link>
+                }
+                <Link to='/parent-password' className="navElement">Change Password</Link>
+            </nav>
+            
 
             <form className='d-flex flex-column' onSubmit={submitUpdatedProfile}>
                 <h1 className="mt-3">Edit Profile</h1>
