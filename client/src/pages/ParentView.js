@@ -34,18 +34,22 @@ const ParentView = () => {
     })
 
     const chores = childData?.child.chores || [];
-    const childName = childData?.child.displayName || childData?.child.username || [];
+    const displayName = childData?.child.displayName || '';
+    const username = childData?.child.username || '';
 
     // update state with current child and chores
     useEffect(() => {
         // if childName in query
-        if (childName) {
+        if (displayName) {
           // update global state to contain children in query
           dispatch({
             type: SET_CURRENT_CHILD,
-            currentChild: {childName, _id: childId}
+            currentChild: {
+                displayName, 
+                _id: childId,
+                username
+            }
           })
-  
         }
 
         // if chores in query
@@ -120,9 +124,10 @@ const ParentView = () => {
             <nav>
                 <Link to="/parent-home" className="navElement">Home</Link>
                 <Link to="/add-chore" className="navElement">Add Chore</Link>
+                <Link to={`/child-profile/${state.currentChild._id}`} className="navElement">{state.currentChild.displayName}'s Profile</Link>
             </nav>
 
-            <h2 className='my-3'>{state.currentChild.childName}'s Chores</h2>
+            <h2 className='my-3'>{state.currentChild.displayName}'s Chores</h2>
             <div className='choresList d-flex flex-column align-items-center'>
                 {state.chores.filter(chore => {
                         const {complete, approve, paid} = chore;

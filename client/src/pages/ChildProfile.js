@@ -1,38 +1,36 @@
-import {UPDATE_PARENT} from '../utils/mutations';
+import {UPDATE_CHILD} from '../utils/mutations';
 import { useState } from 'react';
 import {useMutation} from '@apollo/client';
-import Auth from '../utils/auth';
-import {useNavigate, Link} from 'react-router-dom';
+import {useNavigate, Link, useParams} from 'react-router-dom';
 import { useAppContext } from '../utils/GlobalState';
 
-const ParentProfile = () => {
+const ChildProfile = () => {
     const navigate = useNavigate();
+    const {childId} = useParams();
     const [state, dispatch] = useAppContext();
 
-    const {data: profile} = Auth.getProfile();
+    const [updateChild, {loading, error}] = useMutation(UPDATE_CHILD);
+    const [displayName, setDisplayName] = useState(state.currentChild.displayName || '')
+    const [username, setUsername] = useState(state.currentChild.username || '')
 
-    const [updateParent, {loading, error}] = useMutation(UPDATE_PARENT);
-    const [displayName, setDisplayName] = useState(profile.displayName || '')
-    const [username, setUsername] = useState(profile.username || '')
-    const [email, setEmail] = useState(profile.email || '')
+    if (!state.currentChild._id) {
+        window.location.assign(`/children/${childId}`);
+    }
 
 
     const submitUpdatedProfile = async e => {
         e.preventDefault()
 
         try {
-        const {data} = await updateParent({
+        const {data} = await updateChild({
             variables: {
-                _id: profile._id,
+                _id: childId,
                 username,
-                email,
                 displayName
             }
         })
-        // sign new token
-        Auth.login(data.updateParent.token)
         
-        navigate('/parent-home');
+        navigate(`/children/${childId}`);
         } catch (err) {
             console.log(err);
         }
@@ -50,7 +48,7 @@ const ParentProfile = () => {
             
 
             <form className='d-flex flex-column' onSubmit={submitUpdatedProfile}>
-                <h1 className="mt-3">Edit Profile</h1>
+                <h1 className="mt-3">Edit {state.currentChild.displayName}'s Profile</h1>
                 <input
                     name="displayName"
                     value={displayName}
@@ -69,16 +67,7 @@ const ParentProfile = () => {
                     required
                     
                 />
-                <input
-                    name="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Email"
-                    type="text"
-                    required
-                    
-                />
-                <button type="submit" className='w-100 mt-2 rounded'>Update Profile</button>
+                <button type="submit" className='w-100 mt-2 rounded'>Update {state.currentChild.displayName}'s Profile</button>
                 {error && <div>Error! {error.message}</div>}
             </form>
         </>
@@ -86,4 +75,4 @@ const ParentProfile = () => {
     );
 }
 
-export default ParentProfile;
+export default ChildProfile;

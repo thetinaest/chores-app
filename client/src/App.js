@@ -28,6 +28,7 @@ import ChildHome from './pages/ChildHome';
 import SignUp from './pages/SignUp';
 import ParentProfile from './pages/ParentProfile';
 import ParentPassword from './pages/ParentPassword';
+import ChildProfile from './pages/ChildProfile';
 
 import { AppProvider } from './utils/GlobalState';
 
@@ -69,19 +70,20 @@ function App() {
         {loggedIn && profile.data.userType === 'child' && <InitializeChild />}
         
         <Routes>
-          <Route exact path="/" element={<Dashboard />} />
-          <Route exact path="/login-parent" element={<LoginParent setLoggedIn={setLoggedIn}/>} />
-          <Route exact path="/login-child" element={<LoginChild setLoggedIn={setLoggedIn}/>} />
-          <Route exact path="/sign-up" element={<SignUp setLoggedIn={setLoggedIn}/>} />
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/login-parent" element={<LoginParent setLoggedIn={setLoggedIn}/>} />
+          <Route path="/login-child" element={<LoginChild setLoggedIn={setLoggedIn}/>} />
+          <Route path="/sign-up" element={<SignUp setLoggedIn={setLoggedIn}/>} />
 
-          <Route exact path="/parent-home" element={<ParentHome />} />
-          <Route exact path="/create-child" element={<CreateChild />} />
+          <Route path="/parent-home" element={<ParentHome />} />
+          <Route path="/create-child" element={<CreateChild />} />
           <Route path="/add-chore" element={<AddChore />} />
-          <Route exact path="/children/:childId" element={<ParentView />} />
-          <Route exact path="/parent-profile" element={<ParentProfile />} />
-          <Route exact path="parent-password" element={<ParentPassword /> } />
+          <Route path="/children/:childId" element={<ParentView />} />
+          <Route path="/parent-profile" element={<ParentProfile />} />
+          <Route path="/parent-password" element={<ParentPassword /> } />
+          <Route path="/child-profile/:childId" element={<ChildProfile />} />
 
-          <Route exact path="/child-home" element={<ChildHome />} />
+          <Route path="/child-home" element={<ChildHome />} />
         </Routes>
       </AppProvider>      
     </Router>
