@@ -16,8 +16,14 @@ body{
   justify-content: center;
 }
 
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .navElement {
-  margin: 10px 5px;
+  margin: 0 5px 8px;
   text-decoration: none;
   background-color: var(--color1);
   color: white;

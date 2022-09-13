@@ -2,7 +2,8 @@ const jwt = require('jsonwebtoken')
 const { AuthenticationError } = require('apollo-server-express')
 
 const secret = 'secret'
-const expiration = '2h'
+// expires after one week of inactivity
+const expiration = '7d'
 
 module.exports = {
   authMiddleware: function({ req }) {

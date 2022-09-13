@@ -120,10 +120,31 @@ const resolvers = {
 			}
 		},
 		updateParent: async (parent, args, context, info) => {
-			return await Parent.findByIdAndUpdate(args._id, args, { new: true })
+			const updatedParent = await Parent.findByIdAndUpdate(args._id, args, { new: true });
+
+			// run save hook if password is updated
+			if (args.password) {
+				updatedParent.save();
+			}
+
+			const token = signToken({
+				...updatedParent._doc,
+				userType: 'parent'
+			})
+
+			return {
+				parent: updatedParent,
+				token
+			}
 		},
 		updateChild: async (parent, args, context, info) => {
-			return await Child.findByIdAndUpdate(args._id, args, { new: true })
+			const updatedChild = await Child.findByIdAndUpdate(args._id, args, { new: true })
+
+			if (args.password) {
+				updatedChild.save();
+			}
+
+			return updatedChild;
 		},
 		deleteParent: async (parent, args, context, info) => {
 			return await Parent.findByIdAndDelete(args._id)

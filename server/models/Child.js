@@ -32,7 +32,7 @@ const childSchema = new Schema(
 
 // set up pre-save middleware to create password
 childSchema.pre('save', async function(next) {
-  if (this.isNew || this.isModified('password')) {
+  if (this.isNew || this.isModified('password') || true) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
   }
