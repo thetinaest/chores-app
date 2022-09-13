@@ -61,6 +61,7 @@ const createChild = () => {
     return (
         <>
             <nav>
+                <Link to="/parent-home" className="navElement">Home</Link>
                 {state.children.length > 0 &&
                     <Link to='/add-chore' className="navElement">Add Chore</Link>
                 }

@@ -138,7 +138,13 @@ const resolvers = {
 			}
 		},
 		updateChild: async (parent, args, context, info) => {
-			return await Child.findByIdAndUpdate(args._id, args, { new: true })
+			const updatedChild = await Child.findByIdAndUpdate(args._id, args, { new: true })
+
+			if (args.password) {
+				updatedChild.save();
+			}
+
+			return updatedChild;
 		},
 		deleteParent: async (parent, args, context, info) => {
 			return await Parent.findByIdAndDelete(args._id)

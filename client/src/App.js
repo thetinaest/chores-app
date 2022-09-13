@@ -29,6 +29,7 @@ import SignUp from './pages/SignUp';
 import ParentProfile from './pages/ParentProfile';
 import ParentPassword from './pages/ParentPassword';
 import ChildProfile from './pages/ChildProfile';
+import ChildPassword from './pages/ChildPassword';
 
 import { AppProvider } from './utils/GlobalState';
 
@@ -82,6 +83,7 @@ function App() {
           <Route path="/parent-profile" element={<ParentProfile />} />
           <Route path="/parent-password" element={<ParentPassword /> } />
           <Route path="/child-profile/:childId" element={<ChildProfile />} />
+          <Route path="/child-password/:childId" element={<ChildPassword />} />
 
           <Route path="/child-home" element={<ChildHome />} />
         </Routes>

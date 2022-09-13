@@ -68,8 +68,8 @@ mutation UpdateParent($_id: ID, $email: String, $password: String, $username: St
 `;
 
 export const UPDATE_CHILD = gql`
-mutation UpdateChild($id: ID, $password: String, $username: String, $displayName: String) {
-  updateChild(_id: $id, password: $password, username: $username, displayName: $displayName) {
+mutation UpdateChild($_id: ID, $password: String, $username: String, $displayName: String) {
+  updateChild(_id: $_id, password: $password, username: $username, displayName: $displayName) {
     _id
     username
     password

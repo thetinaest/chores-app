@@ -61,6 +61,7 @@ const addChore = () => {
     return (
         <>
             <nav>
+                <Link to="/parent-home" className="navElement">Home</Link>
                 <Link to='/create-child' className="navElement">Create Child</Link>
             </nav>
             

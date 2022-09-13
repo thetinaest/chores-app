@@ -3,6 +3,7 @@ import { useState } from 'react';
 import {useMutation} from '@apollo/client';
 import {useNavigate, Link, useParams} from 'react-router-dom';
 import { useAppContext } from '../utils/GlobalState';
+import {SET_CURRENT_CHILD} from '../utils/actions';
 
 const ChildProfile = () => {
     const navigate = useNavigate();
@@ -22,6 +23,15 @@ const ChildProfile = () => {
         e.preventDefault()
 
         try {
+        dispatch({
+            type: SET_CURRENT_CHILD,
+            currentChild: {
+                displayName, 
+                _id: childId,
+                username
+            }
+        })
+
         const {data} = await updateChild({
             variables: {
                 _id: childId,
@@ -30,7 +40,7 @@ const ChildProfile = () => {
             }
         })
         
-        navigate(`/children/${childId}`);
+        window.location.assign(`/children/${childId}`);
         } catch (err) {
             console.log(err);
         }
@@ -43,7 +53,7 @@ const ChildProfile = () => {
                 {state.children.length > 0 &&
                     <Link to='/add-chore' className="navElement">Add Chore</Link>
                 }
-                <Link to='/parent-password' className="navElement">Change Password</Link>
+                <Link to={`/child-password/${childId}`} className="navElement">Change Password</Link>
             </nav>
             
 

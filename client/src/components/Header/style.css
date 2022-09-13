@@ -36,8 +36,9 @@
     background-color: var(--color3);
     border-left: var(--color1) solid 1px;
     height: 100vh;
-    width: 250px;
+    width: 400px;
     max-width: 100vw;
+    min-width: 180px;
     z-index: 9998;
     display:flex;
     flex-direction: column;
