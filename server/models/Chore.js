@@ -12,27 +12,31 @@ const choreSchema = new Schema(
     description: {
         type: String 
     },
-    complete: {
-        type: Boolean,
-        default: false
-
-    },
-    // allowance: {
-    //     type: Number
-    // },
     createdAt: {
         type: Date,
         default: Date.now,
         get: timestamp => dateFormat(timestamp)
     },
-    paid: {
-        type: Boolean,
-        default: false
+  //   complete: {
+  //     type: Boolean,
+  //     default: false
+  // },
+  //   paid: {
+  //       type: Boolean,
+  //       default: false
+  //   },
+  //   approve: {
+  //     type: Boolean,
+  //     default: false
+  //   },
+    status: {
+      type: String,
+      default: "Incomplete"
     },
-    approve: {
-      type: Boolean,
-      default: false
-    },
+    allowance: {
+      type: Number,
+      default: 0
+    }
   },
   {
     toJSON: {

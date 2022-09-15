@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
-
+console.log(Schema.Types);
 
 const parentSchema = new Schema(
   {

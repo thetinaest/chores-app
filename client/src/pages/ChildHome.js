@@ -28,16 +28,16 @@ const ChildHome = () => {
             type: UPDATE_CHORES,
             _id: chore._id,
             choreInfo: {
-                complete: true,
+                status: "Awaiting Approval",
             }
         })
 
         await updateChore({
-            variables: { ...chore, complete: true}
+            variables: { ...chore, status: "Awaiting Approval"}
         })
 
         // update chore in indexedDB
-        idbPromise('chores', 'put', {... chore, complete: true});
+        idbPromise('chores', 'put', {... chore, status: "Awaiting Approval"});
     }
 
     const redoChore = async (chore) => {
@@ -46,32 +46,26 @@ const ChildHome = () => {
             type: UPDATE_CHORES,
             _id: chore._id,
             choreInfo: {
-                complete: false,
+                status: "Incomplete",
             }
         })
         
         await updateChore({
-            variables: { ...chore, complete: false}
+            variables: { ...chore, status: "Incomplete"}
         })
 
         // update chore in indexedDB
-        idbPromise('chores', 'put', {...chore , complete: false});
+        idbPromise('chores', 'put', {...chore , status: "Incomplete"});
     }
 
     return (
         <>
         <h2 className='my-3'>{profile.data.displayName || profile.data.username}'s Chores</h2>
         <div className='choresList d-flex flex-column align-items-center'>
-        {state.chores.filter(chore => {
-                const {complete, approve, paid} = chore;
-                return (complete && approve && !paid);
-            }).length > 0 &&
+        {state.chores.filter(chore => chore.status === "Awaiting Payment").length > 0 &&
             <h3>Awaiting Payment</h3>
             }
-            {state.chores.filter(chore => {
-                const {complete, approve, paid} = chore;
-                return (complete && approve && !paid);
-            })
+            {state.chores.filter(chore => chore.status === "Awaiting Payment")
             .map(chore => {
                 return (
                     <div  className='choreCard'  key={chore._id}> 
@@ -80,15 +74,9 @@ const ChildHome = () => {
                 )
             })}
             
-            {state.chores.filter(chore => {
-                const {complete, approve, paid} = chore;
-                return (complete && !approve && !paid);
-            }).length > 0 &&
+            {state.chores.filter(chore => chore.status === "Awaiting Approval").length > 0 &&
             <h3>Awaiting Approval</h3>}
-            {state.chores.filter(chore => {
-                const {complete, approve, paid} = chore;
-                return (complete && !approve && !paid);
-            })
+            {state.chores.filter(chore => chore.status === "Awaiting Approval")
             .map(chore => {
                 return (
                     <div  className='choreCard'  key={chore._id}> 
@@ -102,15 +90,9 @@ const ChildHome = () => {
                 )
             })}
 
-            {state.chores.filter(chore => {
-                const {complete, approve, paid} = chore;
-                return (!complete && !approve && !paid);
-            }).length > 0 &&
+            {state.chores.filter(chore => chore.status === "Incomplete").length > 0 &&
             <h3>Chores to Complete</h3>}
-            {state.chores.filter(chore => {
-                const {complete, approve, paid} = chore;
-                return (!complete && !approve && !paid);
-            })
+            {state.chores.filter(chore => chore.status === "Incomplete")
             .map(chore => {
                 return (
                     <div  className='choreCard' key={chore._id}> 

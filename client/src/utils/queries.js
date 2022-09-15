@@ -24,11 +24,10 @@ export const QUERY_CHILD = gql`
       chores {
         _id
         name
-        approve
-        paid
-        complete
         description
         createdAt
+        status
+        allowance
       }
     }
   }
