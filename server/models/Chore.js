@@ -34,8 +34,7 @@ const choreSchema = new Schema(
       default: "Incomplete"
     },
     allowance: {
-      type: String,
-      default: '$0.00'
+      type: String
     }
   },
   {
