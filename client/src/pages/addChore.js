@@ -20,7 +20,6 @@ const addChore = () => {
         e.preventDefault()
 
         try {
-            console.log(allowance);
 
             // no child selected
             if (!childId) {
@@ -48,7 +47,6 @@ const addChore = () => {
     }
 
     const handleAllowance = () => {
-
         // default allowance of $0.00
         if (!allowance) {
             setAllowance('0.00');
@@ -65,6 +63,11 @@ const addChore = () => {
             for (let i = 0; i < allowance.length; i++) {
                 if (allowance[i] === '.') {
                     setAllowance(allowance.slice(0, i + 3))
+
+                    // if only one decimal place was added, add an extra 0
+                    if (allowance.length - i < 3) {
+                        setAllowance(`${allowance}0`);
+                    }
                     break;
                 }
             }
@@ -105,7 +108,7 @@ const addChore = () => {
                 onBlur = {() => handleAllowance()}
                 step='0.01'
                 min='0'
-                placeholder="Allowance"
+                placeholder="Allowance (Optional)"
             />
             
                 

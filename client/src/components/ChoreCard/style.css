@@ -4,6 +4,12 @@
     right: 5px;
 }
 
+.allowance {
+    position: absolute;
+    top: 10px;
+    left: 5px;
+}
+
 @media screen and (max-width: 550px) {
     .chore-date {
         position: static;
