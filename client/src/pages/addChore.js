@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { useMutation, useQuery } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import {ADD_CHORE} from '../utils/mutations';
-import {QUERY_PARENT, QUERY_CHILD} from '../utils/queries';
+import {QUERY_CHILD} from '../utils/queries';
 import Auth from '../utils/auth';
 import {useNavigate, Link} from 'react-router-dom';
 import {useAppContext} from '../utils/GlobalState';
@@ -13,28 +13,16 @@ const addChore = () => {
     const [addChore] = useMutation(ADD_CHORE)
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
+    const [allowance, setAllowance] = useState('');
     const [childId, setChildId] = useState(state.currentChild._id || '');
-    
-    // get current user parent profile
-    const profile = Auth.getProfile();
-
-    // prevent users from using the add-chore page if they have no children
-    if (state.children.length === 0) {
-        window.location.assign('/parent-home');
-    }
-
-    // query user data from parent collection
-    // const { loading, error, data: parentData } = useQuery(QUERY_PARENT, {
-    //   variables: { _id: profile.data._id },
-    // });
-
-    // const children = parentData?.parent.children || [];
 
     const handleSubmit = async e => {
         e.preventDefault()
 
         try {
+            console.log(allowance);
 
+            // no child selected
             if (!childId) {
                 throw 'Please select a child';
             }
@@ -43,7 +31,8 @@ const addChore = () => {
                 variables: {
                     name, 
                     description,
-                    childId
+                    childId,
+                    allowance
                 },
                 refetchQueries: [
                     {query: QUERY_CHILD}, // DocumentNode object parsed with gql
@@ -55,6 +44,30 @@ const addChore = () => {
             // navigate(`/children/${childId}`)
         } catch (err) {
             console.log(err);
+        }
+    }
+
+    const handleAllowance = () => {
+
+        // default allowance of $0.00
+        if (!allowance) {
+            setAllowance('0.00');
+            return;
+        }
+
+        // if allowance is an integer
+        if (allowance % 1 === 0 && !allowance.includes('.00')) {
+            setAllowance(`${allowance}.00`);
+        } else {
+            setAllowance(`${allowance}`.split(''));
+            
+            // money format, only 2 decimal places
+            for (let i = 0; i < allowance.length; i++) {
+                if (allowance[i] === '.') {
+                    setAllowance(allowance.slice(0, i + 3))
+                    break;
+                }
+            }
         }
     }
 
@@ -85,15 +98,26 @@ const addChore = () => {
                 rows='5'
                 required
             />
+            <input
+                type="number"
+                value={allowance}
+                onChange = {(e) => setAllowance(e.target.value)}
+                onBlur = {() => handleAllowance()}
+                step='0.01'
+                min='0'
+                placeholder="Allowance"
+            />
+            
+                
             <select 
-            name="child-list" 
-            id="child-list"
-            className="mt-1"
-            required
-            defaultValue={childId}
-            onChange={(e) => {
-                setChildId(e.target.value);
-            }}>
+                name="child-list" 
+                id="child-list"
+                className="mt-1"
+                required
+                defaultValue={childId}
+                onChange={(e) => {
+                    setChildId(e.target.value);
+                }}>
                 <option>Select a child...</option>
                 {state.children.map(child => {
                     return <option value={child._id} key={child._id}>{child.displayName || child.username}</option>

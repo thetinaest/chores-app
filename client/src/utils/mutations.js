@@ -95,15 +95,15 @@ mutation UpdateChild($_id: ID, $password: String, $username: String, $displayNam
   `;
 
 export const ADD_CHORE = gql`
-mutation addChore($childId: ID!, $name: String!, $description: String!) {
-    addChore(childId: $childId, name: $name, description: $description) {
+mutation addChore($childId: ID!, $name: String!, $description: String!, $allowance: String) {
+    addChore(childId: $childId, name: $name, description: $description, allowance: $allowance) {
       _id
     }
   }
 `;
 
 export const UPDATE_CHORE = gql`
-mutation UpdateChore($_id: ID, $name: String, $description: String, $status: String, $allowance: Int) {
+mutation UpdateChore($_id: ID, $name: String, $description: String, $status: String, $allowance: String) {
   updateChore(_id: $_id, name: $name, description: $description, status: $status, allowance: $allowance) {
     _id
   }

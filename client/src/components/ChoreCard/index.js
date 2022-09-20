@@ -2,7 +2,8 @@ import './style.css';
 
 const ChoreCard = (props) => {
     const {chore} = props;
-    const {name, description, createdAt} = chore;
+    const {name, description, createdAt, allowance} = chore;
+    console.log(allowance);
 
     return (
         <>

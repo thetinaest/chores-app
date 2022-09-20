@@ -16,7 +16,7 @@ const typeDefs = gql`
     description: String
     createdAt: String
     status: String
-    allowance: Int
+    allowance: String
   }
 
   type Child {
@@ -52,8 +52,8 @@ const typeDefs = gql`
     updateChild(_id: ID, email: String, password: String, username: String, displayName: String): Child
 		deleteParent(_id: ID): Parent
     deleteChild(_id: ID): Child
-    addChore(childId: ID!, name: String!, description: String!): Chore
-    updateChore(_id: ID, name: String, description: String, status: String, allowance: Int): Chore
+    addChore(childId: ID!, name: String!, description: String!, allowance: String): Chore
+    updateChore(_id: ID, name: String, description: String, status: String, allowance: String): Chore
     deleteChore(_id: ID): Chore
 	}
 `;
