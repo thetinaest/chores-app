@@ -14,6 +14,7 @@ const addChore = () => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [allowance, setAllowance] = useState('');
+    const [points, setPoints] = useState('');
     const [childId, setChildId] = useState(state.currentChild._id || '');
 
     const handleSubmit = async e => {
@@ -31,7 +32,8 @@ const addChore = () => {
                     name, 
                     description,
                     childId,
-                    allowance
+                    allowance,
+                    points
                 },
                 refetchQueries: [
                     {query: QUERY_CHILD}, // DocumentNode object parsed with gql
@@ -49,7 +51,7 @@ const addChore = () => {
     const handleAllowance = () => {
         // default allowance of $0.00
         if (!allowance) {
-            setAllowance('0.00');
+            setAllowance('');
             return;
         }
 
@@ -109,6 +111,16 @@ const addChore = () => {
                 step='0.01'
                 min='0'
                 placeholder="Allowance (Optional)"
+            />
+
+            <input
+                type="number"
+                value={points}
+                onChange = {(e) => setPoints(e.target.value)}
+                onBlur = {() => {if(points) setPoints(Math.floor(points))}}
+                step='1'
+                min='0'
+                placeholder="Chore Points (Optional)"
             />
             
                 

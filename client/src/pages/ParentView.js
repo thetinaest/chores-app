@@ -36,6 +36,7 @@ const ParentView = () => {
     const chores = childData?.child.chores || [];
     const displayName = childData?.child.displayName || '';
     const username = childData?.child.username || '';
+    const pointBank = childData?.child.pointBank || 0;
 
     // update state with current child and chores
     useEffect(() => {
@@ -47,7 +48,8 @@ const ParentView = () => {
             currentChild: {
                 displayName, 
                 _id: childId,
-                username
+                username,
+                pointBank
             }
           })
         }

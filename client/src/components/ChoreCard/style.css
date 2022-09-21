@@ -4,10 +4,22 @@
     right: 5px;
 }
 
-.allowance {
+.chore-data {
     position: absolute;
-    top: 10px;
-    left: 5px;
+    top: 2px;
+    left: 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.allowance {
+    margin: 0;
+}
+
+.chore-points {
+    margin: 0;
 }
 
 @media screen and (max-width: 550px) {

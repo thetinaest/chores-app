@@ -17,24 +17,15 @@ const choreSchema = new Schema(
         default: Date.now,
         get: timestamp => dateFormat(timestamp)
     },
-  //   complete: {
-  //     type: Boolean,
-  //     default: false
-  // },
-  //   paid: {
-  //       type: Boolean,
-  //       default: false
-  //   },
-  //   approve: {
-  //     type: Boolean,
-  //     default: false
-  //   },
     status: {
       type: String,
       default: "Incomplete"
     },
     allowance: {
       type: String
+    },
+    points: {
+      type: Number
     }
   },
   {

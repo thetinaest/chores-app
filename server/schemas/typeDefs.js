@@ -17,6 +17,7 @@ const typeDefs = gql`
     createdAt: String
     status: String
     allowance: String
+    points: Int
   }
 
   type Child {
@@ -24,6 +25,7 @@ const typeDefs = gql`
     username: String
     password: String
     displayName: String
+    pointBank: Int
     chores: [Chore]
   }
 
@@ -49,11 +51,11 @@ const typeDefs = gql`
     loginChild(username: String!, password: String!): childAuth
     addChild(parentId: ID!, username: String!, password: String!, displayName: String!): childAuth
 		updateParent(_id: ID, email: String, password: String, username: String, displayName: String, children: [ID]): parentAuth
-    updateChild(_id: ID, email: String, password: String, username: String, displayName: String): Child
+    updateChild(_id: ID, email: String, password: String, username: String, displayName: String, pointBank: Int): Child
 		deleteParent(_id: ID): Parent
     deleteChild(_id: ID): Child
-    addChore(childId: ID!, name: String!, description: String!, allowance: String): Chore
-    updateChore(_id: ID, name: String, description: String, status: String, allowance: String): Chore
+    addChore(childId: ID!, name: String!, description: String!, allowance: String, points: Int): Chore
+    updateChore(_id: ID, name: String, description: String, status: String, allowance: String, points: Int): Chore
     deleteChore(_id: ID): Chore
 	}
 `;

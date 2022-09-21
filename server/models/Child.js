@@ -21,6 +21,10 @@ const childSchema = new Schema(
       minlength: 1,
       maxlength: 20
     },
+    pointBank: {
+      type: Number,
+      default: 0
+    },
     chores: [ 
       {
         type: Schema.Types.ObjectId,

@@ -21,6 +21,7 @@ export const QUERY_CHILD = gql`
       _id
       username
       displayName
+      pointBank
       chores {
         _id
         name
@@ -28,6 +29,7 @@ export const QUERY_CHILD = gql`
         createdAt
         status
         allowance
+        points
       }
     }
   }

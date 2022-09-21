@@ -68,8 +68,8 @@ mutation UpdateParent($_id: ID, $email: String, $password: String, $username: St
 `;
 
 export const UPDATE_CHILD = gql`
-mutation UpdateChild($_id: ID, $password: String, $username: String, $displayName: String) {
-  updateChild(_id: $_id, password: $password, username: $username, displayName: $displayName) {
+mutation UpdateChild($_id: ID, $password: String, $username: String, $displayName: String, $pointBank: Int) {
+  updateChild(_id: $_id, password: $password, username: $username, displayName: $displayName, pointBank: $pointBank) {
     _id
     username
     password
@@ -95,16 +95,16 @@ mutation UpdateChild($_id: ID, $password: String, $username: String, $displayNam
   `;
 
 export const ADD_CHORE = gql`
-mutation addChore($childId: ID!, $name: String!, $description: String!, $allowance: String) {
-    addChore(childId: $childId, name: $name, description: $description, allowance: $allowance) {
+mutation addChore($childId: ID!, $name: String!, $description: String!, $allowance: String, $points: Int) {
+    addChore(childId: $childId, name: $name, description: $description, allowance: $allowance, points: $points) {
       _id
     }
   }
 `;
 
 export const UPDATE_CHORE = gql`
-mutation UpdateChore($_id: ID, $name: String, $description: String, $status: String, $allowance: String) {
-  updateChore(_id: $_id, name: $name, description: $description, status: $status, allowance: $allowance) {
+mutation UpdateChore($_id: ID, $name: String, $description: String, $status: String, $allowance: String, $points: Int) {
+  updateChore(_id: $_id, name: $name, description: $description, status: $status, allowance: $allowance, points: $points) {
     _id
   }
 }
