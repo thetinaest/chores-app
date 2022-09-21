@@ -60,7 +60,8 @@ const ChildHome = () => {
 
     return (
         <>
-        <h2 className='my-3'>{profile.data.displayName || profile.data.username}'s Chores</h2>
+        <h3>{state.currentChild.displayName}'s Points: {state.currentChild.pointBank}</h3>
+        <h2 className='my-3'>{state.currentChild.displayName}'s Chores</h2>
         <div className='choresList d-flex flex-column align-items-center'>
             {state.chores.filter(chore => chore.status === "Incomplete").length > 0 &&
                 <h3>Chores to Complete</h3>}

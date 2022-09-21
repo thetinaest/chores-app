@@ -1,13 +1,14 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {useParams, Link} from 'react-router-dom';
 import {useQuery, useMutation} from '@apollo/client';
 import {QUERY_CHILD} from '../utils/queries';
-import {UPDATE_CHORE, DELETE_CHORE} from '../utils/mutations';
+import {UPDATE_CHORE, DELETE_CHORE, UPDATE_CHILD} from '../utils/mutations';
 import {useAppContext} from '../utils/GlobalState';
 import {SET_CURRENT_CHILD, UPDATE_CHORES, REMOVE_CHORE, LOAD_CHORES} from '../utils/actions';
 import {idbPromise} from '../utils/helpers'
 
 import ChoreCard from '../components/ChoreCard';
+import PointModal from'../components/PointModal';
 
 const ParentView = () => {
     // get childId from params
@@ -27,6 +28,8 @@ const ParentView = () => {
             'child' // Query name
         ],
     });
+
+    const [updateChild] = useMutation(UPDATE_CHILD);
 
     // query child
     const {loading, error, data: childData} = useQuery(QUERY_CHILD, {
@@ -100,6 +103,27 @@ const ParentView = () => {
 
         // update chore in indexedDB
         idbPromise('chores', 'put', { ...chore, status: "Awaiting Payment"});
+
+        // update child if chore had chore points
+        if (chore.points) {
+            // update child in global state
+            dispatch({
+                type: SET_CURRENT_CHILD,
+                currentChild: {
+                    ...state.currentChild,
+                    pointBank: state.currentChild.pointBank + chore.points
+                }
+            })
+
+            // update child in database
+            updateChild({
+                variables: {
+                    _id: childId,
+                    pointBank: state.currentChild.pointBank + chore.points
+                }
+            })
+        }
+        
       }
 
       const reassignChore = async (chore) => {
@@ -123,13 +147,15 @@ const ParentView = () => {
 
     return (
         <>
-            <nav>
+            <nav className="mb-3">
                 <Link to="/parent-home" className="navElement">Home</Link>
                 <Link to="/add-chore" className="navElement">Add Chore</Link>
                 <Link to={`/child-profile/${state.currentChild._id}`} className="navElement">{state.currentChild.displayName}'s Profile</Link>
             </nav>
 
+            <PointModal childId={childId}/>
             <h2 className='my-3'>{state.currentChild.displayName}'s Chores</h2>
+            
             <div className='choresList d-flex flex-column align-items-center'>
                 {state.chores.filter(chore => chore.status === "Awaiting Payment").length > 0 &&
                     <h3>Awaiting Payment</h3>

@@ -1,0 +1,53 @@
+.point-button {
+    border: none;
+    background-color: var(--color1);
+    font-size: 20px;
+    padding: 10px 5px;
+}
+
+.point-button:hover {
+    background-color: black;
+    color: white;
+
+}
+
+.point-modal{
+    position: fixed;
+    top: 17vh;
+    left: 5vw;
+    right: 5vw;
+    background-color: var(--color3);
+    border: 2px solid var(--color1);
+}
+
+.close-point-modal-btn{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.point-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.point-buttons button {
+    width: 75px;
+    margin: 0;
+    border: 1px solid var(--color3)
+}
+
+.point-buttons button:hover {
+    background-color: black;
+}
+
+.point-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    width: 225px;
+    height: 100px;
+    margin: 0;
+    font-size: 75px;
+}
