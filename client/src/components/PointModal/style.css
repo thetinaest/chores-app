@@ -46,9 +46,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: var(--color2);
     border: 2px solid black;
     width: 225px;
     height: 100px;
     margin: 0;
     font-size: 75px;
+
 }

@@ -10,7 +10,7 @@ const ChoreCard = (props) => {
 
         <div className="chore-data">
             {allowance && <p className='allowance'>${allowance}</p>}
-            {points && <p className='chore-points'>{points} Points</p>}
+            {points > 0 && <p className='chore-points'>{points} Point{points !== 1 && 's'}</p>}
         </div>
         
         <div>

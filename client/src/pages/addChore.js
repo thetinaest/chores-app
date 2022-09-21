@@ -33,7 +33,7 @@ const addChore = () => {
                     description,
                     childId,
                     allowance,
-                    points
+                    points: points || 0
                 },
                 refetchQueries: [
                     {query: QUERY_CHILD}, // DocumentNode object parsed with gql
@@ -117,7 +117,14 @@ const addChore = () => {
                 type="number"
                 value={points}
                 onChange = {(e) => setPoints(e.target.value)}
-                onBlur = {() => {if(points) setPoints(Math.floor(points))}}
+                onBlur = {() => {
+                    if(points) {
+                        setPoints(Math.floor(points))
+                    } else {
+                        setPoints(0);
+                    }
+                    
+                }}
                 step='1'
                 min='0'
                 placeholder="Chore Points (Optional)"
